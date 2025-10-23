@@ -1,0 +1,26 @@
+# Prompt validation artifacts
+testing/reports/*.json
+!testing/reports/.gitkeep
+
+# Build output
+dist/
+
+# Script output
+prompts/prompt-library-index.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# PowerShell
+*.ps1module.zip
+
+# Temporary
+temp/
+*.tmp
