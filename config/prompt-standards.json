@@ -1,0 +1,73 @@
+{
+  "$schema": "prompt-engineering-standards-v1",
+  "description": "Architectural standards for prompt authoring across Srinath Sankara",
+  "version": "1.0.0",
+  "standards": {
+    "prompt_structure": {
+      "required_sections": ["system_prompt", "user_prompt", "output_format"],
+      "optional_sections": ["context", "examples", "constraints", "fallback_instructions"],
+      "max_length_tokens": 4096,
+      "format": "markdown"
+    },
+    "naming_conventions": {
+      "pattern": "{service-line}_{use-case-type}_{complexity-tier}_{version}",
+      "max_filename_length": 80,
+      "allowed_chars": "a-z0-9_-",
+      "examples": [
+        "tax_corporate-income_basic_v1",
+        "assurance_audit-procedures_advanced_v2",
+        "advisory_risk-assessment_medium_v1"
+      ]
+    },
+    "complexity_tiers": {
+      "basic": {
+        "description": "Simple single-turn prompts with minimal context",
+        "max_tokens": 1024,
+        "validation_required": ["accuracy", "format"],
+        "approval": "self"
+      },
+      "medium": {
+        "description": "Multi-turn prompts with domain context and examples",
+        "max_tokens": 2048,
+        "validation_required": ["accuracy", "format", "edge_cases"],
+        "approval": "peer"
+      },
+      "advanced": {
+        "description": "Complex multi-step prompts with RAG, CoT, or agentic patterns",
+        "max_tokens": 4096,
+        "validation_required": ["accuracy", "format", "edge_cases", "hallucination", "compliance"],
+        "approval": "architect"
+      }
+    },
+    "validation_status": {
+      "draft": "Initial authoring, not yet tested",
+      "in_review": "Undergoing QA validation",
+      "validated": "Passed all required QA checks",
+      "production": "Deployed and available for use",
+      "deprecated": "Superseded or retired"
+    },
+    "metadata_requirements": {
+      "frontmatter_fields": [
+        "title",
+        "service_line",
+        "use_case_type",
+        "complexity_tier",
+        "validation_status",
+        "version",
+        "author",
+        "reviewer",
+        "created_date",
+        "last_modified",
+        "tags",
+        "dependencies",
+        "test_suites"
+      ]
+    },
+    "quality_gates": {
+      "accuracy_threshold": 0.9,
+      "hallucination_tolerance": 0.05,
+      "response_time_ms_max": 5000,
+      "format_compliance": "strict"
+    }
+  }
+}

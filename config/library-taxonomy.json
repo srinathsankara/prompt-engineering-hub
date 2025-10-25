@@ -1,0 +1,107 @@
+{
+  "$schema": "library-taxonomy-v1",
+  "version": "1.0.0",
+  "taxonomy": {
+    "service_lines": {
+      "tax": {
+        "display_name": "Tax",
+        "subcategories": ["individual", "corporate", "international", "state-local", "credits-incentives", "controversy", "nonprofit", "compensation-benefits", "partnership", "tax-provision"],
+        "color": "#1a73e8",
+        "description": "Tax compliance, planning, advisory, controversy, and specialty tax prompts spanning all entity types"
+      },
+      "assurance": {
+        "display_name": "Assurance",
+        "subcategories": ["audit", "review", "compilations", "soc-reporting", "technical-accounting", "employee-benefit-plans", "accounting-services", "sec-audit"],
+        "color": "#34a853",
+        "description": "Audit, attestation, SOC reporting, technical accounting, and outsourced accounting prompts"
+      },
+      "advisory": {
+        "display_name": "Advisory",
+        "subcategories": ["consulting", "risk", "deal-advisory", "valuation", "forensic", "digital", "finance-transformation"],
+        "color": "#ea4335",
+        "description": "Management consulting, transactions, valuation, forensic, digital, and finance transformation prompts"
+      },
+      "wealth-management": {
+        "display_name": "Wealth Management",
+        "subcategories": ["planning", "compliance", "reporting", "estates-trusts", "investment-advisory"],
+        "color": "#fbbc04",
+        "description": "Financial planning, wealth compliance, estate and trust, and investment advisory prompts"
+      },
+      "infrastructure": {
+        "display_name": "Infrastructure & SRE",
+        "subcategories": ["incident-response", "kubernetes", "terraform", "ci-cd", "security", "monitoring", "database", "cost-optimization", "disaster-recovery"],
+        "color": "#6c5ce7",
+        "description": "SDLC, SRE, DevOps, and cloud infrastructure prompts for 400+ production apps on AWS/Azure"
+      },
+      "transactions": {
+        "display_name": "Transactions",
+        "subcategories": ["deal-advisory", "transaction-tax", "valuation", "forensic-dispute", "it-due-diligence"],
+        "color": "#e17055",
+        "description": "M&A deal advisory, transaction tax, business valuation, forensic investigation, and IT due diligence prompts"
+      },
+      "risk-cybersecurity": {
+        "display_name": "Risk & Cybersecurity",
+        "subcategories": ["cybersecurity", "internal-audit", "sox-compliance", "risk-advisory", "risk-analytics", "cmmc", "iso-27001", "iso-42001", "iso-42002", "hipaa", "nist-csf"],
+        "color": "#00b894",
+        "description": "Cybersecurity assessments, internal audit, SOX compliance, risk advisory, and risk analytics prompts"
+      },
+      "digital-advisory": {
+        "display_name": "Digital Advisory",
+        "subcategories": ["erp", "analytics-automation", "digital-strategy", "ai", "business-process-optimization"],
+        "color": "#fd79a8",
+        "description": "ERP consulting, analytics, automation, digital strategy, AI adoption, and process optimization prompts"
+      },
+      "strategic-financing": {
+        "display_name": "Strategic Financing",
+        "subcategories": ["new-markets-tax-credits", "opportunity-zones", "community-development", "project-financing"],
+        "color": "#00cec9",
+        "description": "New markets tax credits, opportunity zone consulting, community development, and project financing prompts"
+      },
+      "people-workforce": {
+        "display_name": "People & Workforce Solutions",
+        "subcategories": ["fractional-cxo", "hr-consulting", "recruiting-staffing", "compensation-benchmarking"],
+        "color": "#a29bfe",
+        "description": "Fractional executive, HR consulting, recruiting, staffing, and compensation benchmarking prompts"
+      },
+      "industry-verticals": {
+        "display_name": "Industry Verticals",
+        "subcategories": ["not-for-profit", "government-contracting", "healthcare", "financial-services", "real-estate-construction", "private-equity", "manufacturing", "technology"],
+        "color": "#fab1a0",
+        "description": "Industry-specific prompts for NFP, GovCon, healthcare, financial services, real estate, PE, manufacturing, and technology"
+      }
+    },
+    "use_case_types": {
+      "drafting": "Generate initial document drafts",
+      "review": "Review and analyze existing content",
+      "summarization": "Summarize lengthy documents or data",
+      "extraction": "Extract structured data from unstructured content",
+      "classification": "Categorize entities, transactions, or documents",
+      "calculation": "Perform calculations and numerical analysis",
+      "research": "Gather and synthesize information",
+      "decision-support": "Provide recommendations with rationale",
+      "communication": "Generate client-facing communications",
+      "code-generation": "Generate or analyze code and automation scripts",
+      "troubleshooting": "Diagnose and resolve production incidents and issues",
+      "analysis": "Analyze logs, metrics, traces, and system behavior",
+      "remediation": "Generate remediation plans and corrective actions",
+      "optimization": "Optimize performance, cost, and reliability"
+    },
+    "complexity_tiers": ["basic", "medium", "advanced"],
+    "validation_statuses": ["draft", "in_review", "validated", "production", "deprecated"],
+    "tags": {
+      "technology": ["claude", "copilot", "rag", "agentic", "tool-use", "terraform", "kubernetes", "docker", "aws", "azure", "dynamics365", "sage", "powerbi"],
+      "delivery": ["client-facing", "internal-only", "review-only", "runbook", "post-mortem"],
+      "domain_specific": ["compliance", "regulation", "gaap", "gasp", "irc", "soc2", "hipaa", "hi-tech", "pci", "iso27001", "iso42001", "iso42002", "nist-csf", "nist-800-171", "dcaa", "far", "cas", "cmmc", "cmmc-l2", "sox", "fedramp", "gdpr", "asc-606", "asc-842", "asc-740", "dfars"],
+      "integration": ["api", "webhook", "database", "file-processing", "pagerduty", "datadog", "grafana", "prometheus", "erp", "crm"],
+      "sdlc_phase": ["plan", "code", "build", "test", "deploy", "operate", "monitor"],
+      "severity": ["sev1", "sev2", "sev3", "sev4"],
+      "engagement_type": ["compliance", "consulting", "audit", "review", "agreed-upon-procedures", "planning"],
+      "transaction_type": ["buy-side", "sell-side", "financing", "restructuring", "valuation", "litigation"],
+      "entity_type": ["c-corp", "s-corp", "partnership", "llc", "nonprofit", "government", "trust", "estate"]
+    }
+  },
+  "search_index": {
+    "fields": ["title", "service_line", "subcategory", "use_case_type", "complexity_tier", "tags"],
+    "sort_options": ["last_modified", "complexity_tier", "service_line", "validation_status"]
+  }
+}
