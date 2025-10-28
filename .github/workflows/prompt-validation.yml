@@ -1,0 +1,52 @@
+name: Prompt Validation Pipeline
+
+on:
+  pull_request:
+    paths:
+      - "prompts/**/*.md"
+      - "skills/**/*.md"
+      - "config/prompt-standards.json"
+  push:
+    branches: [main]
+    paths:
+      - "prompts/**/*.md"
+      - "skills/**/*.md"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect changed prompts
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            prompts:
+              - added|modified: 'prompts/**/*.md'
+            skills:
+              - added|modified: 'skills/**/*.md'
+
+      - name: Validate changed prompts
+        if: steps.changes.outputs.prompts == 'true'
+        shell: pwsh
+        run: |
+          $changed = git diff --name-only --diff-filter=AM ${{ github.event.before }} HEAD -- 'prompts/**/*.md'
+          $exitCode = 0
+          foreach ($file in $changed) {
+            $tier = "basic"
+            $content = Get-Content $file -Raw
+            if ($content -match 'complexity_tier:\s*(\w+)') { $tier = $Matches[1] }
+            Write-Host "Validating: $file (tier: $tier)"
+            & ./scripts/validate-prompts.ps1 -PromptPath $file -ComplexityTier $tier -OutputPath "./testing/reports/$(Split-Path $file -LeafBase)-report.json"
+            if ($LASTEXITCODE -ne 0) { $exitCode = 1 }
+          }
+          exit $exitCode
+
+      - name: Upload validation reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-reports
+          path: testing/reports/*.json

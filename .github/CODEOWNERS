@@ -1,0 +1,27 @@
+# Default owners for the entire repository
+* @cherrybekaert/prompt-engineering-team
+
+# Prompt library by service line
+/prompts/tax/ @cherrybekaert/tax-sme @cherrybekaert/prompt-engineering-team
+/prompts/assurance/ @cherrybekaert/assurance-sme @cherrybekaert/prompt-engineering-team
+/prompts/advisory/ @cherrybekaert/advisory-sme @cherrybekaert/prompt-engineering-team
+/prompts/wealth-management/ @cherrybekaert/wealth-sme @cherrybekaert/prompt-engineering-team
+
+# Skills and agents
+/skills/ @cherrybekaert/workflow-architect @cherrybekaert/prompt-engineering-team
+
+# Patterns
+/patterns/ @cherrybekaert/workflow-architect
+
+# Testing framework
+/testing/ @cherrybekaert/prompt-engineering-team @cherrybekaert/qa-team
+
+# Configuration
+/config/ @cherrybekaert/workflow-architect
+
+# CI/CD
+/.github/ @cherrybekaert/workflow-architect @cherrybekaert/platform-admin
+
+# Training and knowledge base
+/knowledge-base/ @cherrybekaert/prompt-engineering-team
+/training/ @cherrybekaert/ambassador-lead @cherrybekaert/prompt-engineering-team

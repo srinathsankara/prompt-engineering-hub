@@ -1,0 +1,51 @@
+name: Skill Deployment Pipeline
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "skills/**"
+      - "patterns/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate skill definitions
+        shell: pwsh
+        run: |
+          $errors = 0
+          Get-ChildItem -Path skills -Recurse -Filter "*.json" | ForEach-Object {
+            try {
+              $null = Get-Content $_.FullName -Raw | ConvertFrom-Json
+              Write-Host "Valid JSON: $($_.Name)"
+            } catch {
+              Write-Error "Invalid JSON in $($_.Name): $_"
+              $errors++
+            }
+          }
+          if ($errors -gt 0) { exit 1 }
+
+      - name: Build skill artifacts
+        shell: pwsh
+        run: |
+          $artifactDir = "./dist/skills"
+          New-Item -ItemType Directory -Path $artifactDir -Force
+          Copy-Item -Path "skills/*" -Destination $artifactDir -Recurse
+          Copy-Item -Path "patterns/*" -Destination "$artifactDir/patterns" -Recurse
+          Write-Host "Skills packaged to $artifactDir"
+
+      - name: Deploy to production
+        run: |
+          echo "Deployment would occur here"
+          echo "Skills: $(ls skills/ | wc -l) components"
+          echo "Patterns: $(ls patterns/ | wc -l) categories"
+
+      - name: Upload deployment artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: skill-artifacts
+          path: dist/skills/
