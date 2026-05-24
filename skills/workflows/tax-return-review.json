@@ -1,0 +1,70 @@
+{
+  "name": "tax-return-review-workflow",
+  "version": "1.0.0",
+  "description": "Multi-step workflow for reviewing corporate tax returns using AI-assisted analysis",
+  "service_line": "tax",
+  "subcategory": "corporate",
+  "complexity_tier": "advanced",
+  "steps": [
+    {
+      "id": "extract-return-data",
+      "type": "prompt",
+      "prompt_ref": "prompts/tax/corporate/tax_corporate-return-data_v1.md",
+      "input": {
+        "return_file": "$.workflow.input.return_file",
+        "entity_name": "$.workflow.input.entity_name",
+        "tax_year": "$.workflow.input.tax_year"
+      },
+      "output_key": "extracted_data"
+    },
+    {
+      "id": "validate-against-prior",
+      "type": "prompt",
+      "prompt_ref": "prompts/tax/corporate/tax_corporate-prior-comparison_v1.md",
+      "input": {
+        "current_return": "$.steps.extract-return-data.output",
+        "prior_return_source": "$.workflow.input.prior_return_file"
+      },
+      "output_key": "variance_analysis"
+    },
+    {
+      "id": "check-compliance",
+      "type": "prompt",
+      "prompt_ref": "prompts/tax/corporate/tax_corporate-compliance-check_v1.md",
+      "input": {
+        "return_data": "$.steps.extract-return-data.output",
+        "variance_analysis": "$.steps.validate-against-prior.output",
+        "jurisdiction": "$.workflow.input.jurisdiction"
+      },
+      "output_key": "compliance_report"
+    },
+    {
+      "id": "generate-review-memo",
+      "type": "prompt",
+      "prompt_ref": "prompts/tax/corporate/tax_corporate-review-memo_v1.md",
+      "input": {
+        "extracted_data": "$.steps.extract-return-data.output",
+        "variance_analysis": "$.steps.validate-against-prior.output",
+        "compliance_report": "$.steps.check-compliance.output",
+        "reviewer_name": "$.workflow.input.reviewer_name"
+      },
+      "output_key": "review_memo"
+    }
+  ],
+  "output": {
+    "type": "composite",
+    "sources": [
+      "$.steps.generate-review-memo.output",
+      "$.steps.check-compliance.output"
+    ]
+  },
+  "error_handling": {
+    "retry_policy": "linear-backoff",
+    "max_retries": 2,
+    "fallback_prompt": "prompts/tax/corporate/tax_corporate-review-fallback_v1.md"
+  },
+  "validation": {
+    "required_inputs": ["return_file", "entity_name", "tax_year"],
+    "output_validation": "testing/frameworks/prompt-validator.ps1"
+  }
+}

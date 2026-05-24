@@ -1,0 +1,40 @@
+{
+  "name": "document-analyzer-component",
+  "version": "1.1.0",
+  "description": "Reusable skill component for analyzing professional services documents (financial statements, tax returns, contracts)",
+  "service_lines": ["tax", "assurance", "advisory", "wealth-management"],
+  "type": "component",
+  "inputs": {
+    "document": {
+      "type": "file",
+      "formats": ["pdf", "docx", "xlsx", "txt"],
+      "max_size_mb": 50,
+      "description": "The document to analyze"
+    },
+    "analysis_type": {
+      "type": "enum",
+      "options": ["extraction", "summarization", "comparison", "compliance-check"],
+      "description": "Type of analysis to perform"
+    },
+    "focus_areas": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Specific areas or sections to focus on"
+    }
+  },
+  "outputs": {
+    "type": "object",
+    "properties": {
+      "summary": { "type": "string", "description": "Executive summary of findings" },
+      "structured_data": { "type": "object", "description": "Extracted data in structured format" },
+      "flags": { "type": "array", "description": "Items requiring attention or review" },
+      "confidence_scores": { "type": "object", "description": "Per-section confidence ratings" }
+    }
+  },
+  "config": {
+    "model": "claude-sonnet-4-20250514",
+    "max_tokens": 8192,
+    "temperature": 0.1,
+    "system_prompt_template": "You are a document analysis specialist — Srinath Sankara. Analyze the provided {{document_type}} with a focus on {{analysis_type}}. Extract key data points, identify anomalies, and flag items for professional review. Always note uncertainty when data is ambiguous or unclear."
+  }
+}

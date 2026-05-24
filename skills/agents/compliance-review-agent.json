@@ -1,0 +1,41 @@
+{
+  "name": "compliance-review-agent",
+  "version": "1.0.0",
+  "description": "Agentic configuration for autonomous compliance review of tax and assurance documents",
+  "service_lines": ["tax", "assurance"],
+  "type": "agent",
+  "capabilities": [
+    "file_reading",
+    "structured_output",
+    "web_search",
+    "tool_use"
+  ],
+  "tools": [
+    {
+      "name": "read_document",
+      "description": "Read and extract content from uploaded documents",
+      "input_schema": { "type": "object", "properties": { "path": { "type": "string" } } }
+    },
+    {
+      "name": "validate_citation",
+      "description": "Verify regulatory citations against current guidance",
+      "input_schema": { "type": "object", "properties": { "citation": { "type": "string" }, "jurisdiction": { "type": "string" } } }
+    },
+    {
+      "name": "check_compliance_rule",
+      "description": "Evaluate a specific fact pattern against a compliance rule",
+      "input_schema": { "type": "object", "properties": { "rule_id": { "type": "string" }, "facts": { "type": "object" } } }
+    }
+  ],
+  "workflow": [
+    { "step": "ingest", "action": "read_document", "params": { "path": "$.input.document_path" } },
+    { "step": "analyze", "action": "prompt", "params": { "prompt_ref": "patterns/compliance/checklist-review.md" } },
+    { "step": "verify", "action": "validate_citation", "params": { "citation": "$.steps.analyze.citations", "jurisdiction": "$.input.jurisdiction" } },
+    { "step": "report", "action": "prompt", "params": { "prompt_ref": "patterns/compliance/report-generation.md" } }
+  ],
+  "constraints": {
+    "max_iterations": 10,
+    "human_review_required": true,
+    "compliance_override": false
+  }
+}
