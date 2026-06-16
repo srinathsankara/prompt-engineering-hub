@@ -1,0 +1,60 @@
+{
+  "name": "ebp-audit-procedures-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/assurance/employee-benefit-plans/assurance_ebp-audit-procedures_medium_v1.md",
+  "service_line": "assurance",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "ERISA requires annual audit for plans with 100+ participants",
+    "DOL Form 5500 must be filed by end of 7th month after plan year end",
+    "SAS 136 governs EBP audit reporting",
+    "Limited-scope audit under ERISA 103(a)(3)(C) excludes investment information",
+    "Participant census data completeness is the most common audit deficiency"
+  ],
+  "ground_truth": [
+    "ERISA 103(a)(3)(C) limited scope",
+    "Form 5500 filing",
+    "SAS 136",
+    "Participant data testing",
+    "Contribution testing"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 7,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "standard-401k-plan",
+      "input": {
+        "plan_type": "401(k)",
+        "participant_count": "250",
+        "plan_assets": "$15,000,000"
+      },
+      "expected": {
+        "contains": ["ERISA", "Form 5500", "participant data", "contribution testing", "limited-scope"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "defined-benefit-plan",
+      "input": {
+        "plan_type": "Defined Benefit",
+        "participant_count": "150",
+        "plan_assets": "$50,000,000"
+      },
+      "expected": {
+        "contains": ["ERISA", "Form 5500", "benefit payment", "actuarial", "funding"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

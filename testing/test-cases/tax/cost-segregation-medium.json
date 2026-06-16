@@ -1,0 +1,60 @@
+{
+  "name": "cost-segregation-study-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/tax/credits-incentives/tax_cost-segregation-study_medium_v1.md",
+  "service_line": "tax",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "MACRS recovery periods: 5-year, 7-year, 15-year, 39-year (commercial), 27.5-year (residential)",
+    "IRS Cost Segregation Audit Techniques Guide is the authoritative reference",
+    "Land is not depreciable",
+    "Section 179 and bonus depreciation apply to qualified property",
+    "Personal property can be reclassified to 5- or 7-year MACRS"
+  ],
+  "ground_truth": [
+    "MACRS",
+    "cost segregation",
+    "5-year property",
+    "IRS Audit Techniques Guide",
+    "bonus depreciation"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 6,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "commercial-office",
+      "input": {
+        "property_type": "commercial office",
+        "cost_basis": "$10,000,000",
+        "construction_method": "new construction"
+      },
+      "expected": {
+        "contains": ["MACRS", "5-year", "15-year", "39-year", "cost segregation"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "manufacturing-plant",
+      "input": {
+        "property_type": "manufacturing",
+        "cost_basis": "$25,000,000",
+        "construction_method": "acquisition"
+      },
+      "expected": {
+        "contains": ["MACRS", "5-year", "process equipment", "cost segregation", "Section 1245"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "review-engagement-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/assurance/review/assurance_review-engagement-procedures_medium_v1.md",
+  "service_line": "assurance",
+  "complexity_tier": "medium",
+  "threshold": { "accuracy": 0.85, "hallucination": 0.0 },
+  "known_facts": [
+    "Review provides limited assurance under SSARS 21 (AR-C 90)",
+    "Inquiry and analytical procedures are the primary review procedures",
+    "Review report states 'no material modifications should be necessary'",
+    "Management representation letter is required for review engagements"
+  ],
+  "ground_truth": ["SSARS 21", "AR-C 90", "limited assurance", "analytical procedures", "representation letter"],
+  "format": { "required": "markdown", "rules": { "max_sections": 6, "required_disclaimer": "" } },
+  "tests": [
+    {
+      "name": "standard-review",
+      "input": { "entity_type": "LLC", "period_end": "2026-12-31" },
+      "expected": { "contains": ["SSARS", "limited assurance", "analytical procedures", "inquiry"], "format": "markdown" },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

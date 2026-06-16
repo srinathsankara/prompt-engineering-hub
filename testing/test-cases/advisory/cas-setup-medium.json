@@ -1,0 +1,63 @@
+{
+  "name": "cas-setup-transition-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/advisory/outsourced-accounting/advisory_cas-setup-transition_medium_v1.md",
+  "service_line": "advisory",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "Chart of accounts should balance standardization with client-specific needs",
+    "Month-end close should target Day 10 for basic bookkeeping, Day 5 for controller level",
+    "Data migration is the highest failure risk event",
+    "Sales tax automation should be integrated at setup, not retrofitted",
+    "Multi-entity consolidations require intercompany elimination mapping"
+  ],
+  "ground_truth": [
+    "chart of accounts",
+    "month-end close",
+    "data migration",
+    "Q2C",
+    "P2P",
+    "R2R"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 6,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "startup-setup",
+      "input": {
+        "industry": "technology",
+        "revenue": "$5,000,000",
+        "service_level": "bookkeeping",
+        "current_system": "Excel"
+      },
+      "expected": {
+        "contains": ["chart of accounts", "QuickBooks", "month-end close", "process design"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "nonprofit-transition",
+      "input": {
+        "industry": "nonprofit",
+        "entity_type": "nonprofit",
+        "service_level": "client controller",
+        "monthly_transactions": "3,000"
+      },
+      "expected": {
+        "contains": ["chart of accounts", "fund accounting", "grant compliance", "month-end close"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "name": "ipo-readiness-assessment-advanced-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/advisory/finance-transformation/advisory_ipo-readiness-assessment_advanced_v1.md",
+  "service_line": "advisory",
+  "complexity_tier": "advanced",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "JOBS Act EGC status provides scaled disclosure for companies <$1.07B revenue",
+    "SOX 404 requires management assessment of internal controls over financial reporting",
+    "Audit committee must be 100% independent with at least one financial expert",
+    "S-1 confidential filing is available for all issuers as of 2020 rule changes",
+    "Lock-up agreements typically last 180 days"
+  ],
+  "ground_truth": [
+    "S-1",
+    "SOX 404",
+    "JOBS Act",
+    "audit committee",
+    "internal controls"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 7,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "tech-company-ipo",
+      "input": {
+        "industry": "technology",
+        "revenue_latest": "$500,000,000",
+        "target_exchange": "Nasdaq"
+      },
+      "expected": {
+        "contains": ["S-1", "SOX 404", "EGC", "audit committee", "Nasdaq listing standards"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "manufacturing-company-ipo",
+      "input": {
+        "industry": "manufacturing",
+        "revenue_latest": "$200,000,000",
+        "target_exchange": "NYSE"
+      },
+      "expected": {
+        "contains": ["S-1", "SOX 404", "internal controls", "NYSE", "corporate governance"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

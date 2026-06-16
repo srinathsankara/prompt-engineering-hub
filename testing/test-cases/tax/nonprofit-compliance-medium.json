@@ -1,0 +1,24 @@
+{
+  "name": "nonprofit-501c3-compliance-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/tax/nonprofit/tax_nonprofit-501c3-compliance_medium_v1.md",
+  "service_line": "tax",
+  "complexity_tier": "medium",
+  "threshold": { "accuracy": 0.85, "hallucination": 0.0 },
+  "known_facts": [
+    "Form 990 serves as both tax return and public disclosure document",
+    "UBIT applies to unrelated trades or businesses regularly carried on",
+    "Private foundations have specific excise taxes on self-dealing, distributions, and excess holdings",
+    "Lobbying limits: public charities may make limited lobbying expenditures; private foundations cannot"
+  ],
+  "ground_truth": ["Form 990", "UBIT", "private foundation", "self-dealing", "exempt organization"],
+  "format": { "required": "markdown", "rules": { "max_sections": 6, "required_disclaimer": "" } },
+  "tests": [
+    {
+      "name": "public-charity-compliance",
+      "input": { "org_type": "public charity", "annual_revenue": "$5,000,000" },
+      "expected": { "contains": ["Form 990", "UBIT", "compliance", "board"], "format": "markdown" },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

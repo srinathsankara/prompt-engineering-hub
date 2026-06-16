@@ -1,0 +1,60 @@
+{
+  "name": "transfer-pricing-documentation-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/tax/international/tax_transfer-pricing-documentation_medium_v1.md",
+  "service_line": "tax",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "IRC Section 482 governs transfer pricing",
+    "OECD Transfer Pricing Guidelines provide international framework",
+    "TNMM is the most common method for services, distribution, and manufacturing",
+    "BEPS Action 13 requires master file, local file, and CbC reporting",
+    "Contemporaneous documentation must be prepared before tax return filing date"
+  ],
+  "ground_truth": [
+    "Section 482",
+    "arm's length standard",
+    "TNMM",
+    "functional analysis",
+    "contemporaneous documentation"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 6,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "intercompany-services",
+      "input": {
+        "transaction_type": "intercompany services",
+        "taxpayer_jurisdiction": "United States",
+        "related_jurisdiction": "India"
+      },
+      "expected": {
+        "contains": ["Section 482", "TNMM", "arm's length", "functional analysis", "benchmarking"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "intercompany-loan",
+      "input": {
+        "transaction_type": "loans",
+        "taxpayer_jurisdiction": "United States",
+        "related_jurisdiction": "Germany"
+      },
+      "expected": {
+        "contains": ["Section 482", "CUP", "arm's length", "credit rating", "interest rate"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

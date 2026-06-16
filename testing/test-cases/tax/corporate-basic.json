@@ -1,0 +1,58 @@
+{
+  "name": "corporate-income-tax-basic-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/tax/corporate/tax_corporate-income_basic_v1.md",
+  "service_line": "tax",
+  "complexity_tier": "basic",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "IRC Section 11 imposes tax on corporate taxable income",
+    "Current corporate tax rate is 21% under the Tax Cuts and Jobs Act",
+    "Section 179 allows expensing of certain property",
+    "Section 168 provides for MACRS depreciation",
+    "Estimated tax payments required if tax liability exceeds $500"
+  ],
+  "ground_truth": [
+    "21% corporate tax rate",
+    "Tax Cuts and Jobs Act",
+    "Section 179",
+    "MACRS depreciation",
+    "Estimated tax payments"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 8,
+      "required_disclaimer": "This document is for informational purposes"
+    }
+  },
+  "tests": [
+    {
+      "name": "standard-manufacturing-client",
+      "input": {
+        "client_industry": "manufacturing",
+        "jurisdiction": "Texas"
+      },
+      "expected": {
+        "contains": ["21%", "Section 179", "depreciation", "Texas franchise tax", "estimated tax"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "tech-startup-client",
+      "input": {
+        "client_industry": "technology",
+        "jurisdiction": "California"
+      },
+      "expected": {
+        "contains": ["21%", "R&D credit", "Section 174", "California", "estimated tax"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}
