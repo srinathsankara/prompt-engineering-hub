@@ -1,0 +1,62 @@
+{
+  "name": "nist-csf-assessment-advanced-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/risk-cybersecurity/cybersecurity/risk_nist-csf-assessment_advanced_v1.md",
+  "service_line": "risk-cybersecurity",
+  "complexity_tier": "advanced",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "NIST CSF 2.0 has six functions: Govern, Identify, Protect, Detect, Respond, Recover",
+    "Maturity is scored 0-5: Not Performed to Optimizing",
+    "Supply chain risk (GV.SC) is a new category in CSF 2.0",
+    "MITRE ATT&CK mapping is a best practice for detection maturity",
+    "EDR/XDR with 24/7 SOC is the baseline for Tier 3 maturity"
+  ],
+  "ground_truth": [
+    "NIST CSF 2.0",
+    "Govern",
+    "Identify",
+    "Protect",
+    "Detect",
+    "Respond",
+    "Recover"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 9,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "mid-market-company",
+      "input": {
+        "industry": "healthcare",
+        "current_tier": "Tier 2: Risk-Informed",
+        "target_tier": "Tier 3: Repeatable"
+      },
+      "expected": {
+        "contains": ["NIST CSF", "Govern", "Protect", "maturity", "remediation roadmap"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "manufacturing-company",
+      "input": {
+        "industry": "manufacturing",
+        "it_ot_scope": "IT + OT",
+        "current_tier": "Tier 1: Partial"
+      },
+      "expected": {
+        "contains": ["NIST CSF", "Identify", "OT", "risk assessment", "asset management"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

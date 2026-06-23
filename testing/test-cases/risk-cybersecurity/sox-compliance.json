@@ -1,0 +1,24 @@
+{
+  "name": "sox-compliance-internal-control-narrative-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/risk-cybersecurity/sox-compliance/risk-sox_internal-control-narrative_medium_v1.md",
+  "service_line": "risk-cybersecurity",
+  "complexity_tier": "medium",
+  "threshold": { "accuracy": 0.85, "hallucination": 0.0 },
+  "known_facts": [
+    "SOX 404 requires management assessment of internal controls over financial reporting",
+    "PCAOB AS 2201 governs auditor attestation of ICFR",
+    "COSO framework is the standard for evaluating internal controls",
+    "ITGC covers access, change management, computer operations, and program development"
+  ],
+  "ground_truth": ["SOX 404", "PCAOB", "COSO", "ICFR", "ITGC"],
+  "format": { "required": "markdown", "rules": { "max_sections": 6, "required_disclaimer": "" } },
+  "tests": [
+    {
+      "name": "manufacturing-company-sox",
+      "input": { "company_type": "public", "industry": "manufacturing" },
+      "expected": { "contains": ["SOX 404", "COSO", "control environment", "ITGC", "ICFR"], "format": "markdown" },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

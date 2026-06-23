@@ -1,0 +1,64 @@
+{
+  "name": "kubernetes-debugging-test-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/infrastructure/kubernetes/infra_k8s-debugging_medium_v1.md",
+  "service_line": "infrastructure",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.8,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "CrashLoopBackOff means the pod starts and repeatedly crashes",
+    "ImagePullBackOff means the container image cannot be pulled",
+    "OOMKilled exit code is 137",
+    "kubectl describe pod shows recent events and conditions",
+    "kubectl logs --previous shows logs from the last container instance",
+    "Pending pods are unschedulable due to resource constraints",
+    "kubectl drain safely evicts pods from a node",
+    "kubectl rollout undo reverts a deployment to a previous revision"
+  ],
+  "ground_truth": [
+    "CrashLoopBackOff",
+    "ImagePullBackOff",
+    "OOMKilled",
+    "exit code 137",
+    "kubectl describe pod",
+    "kubectl logs --previous",
+    "kubectl drain",
+    "kubectl rollout undo"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 10
+    }
+  },
+  "tests": [
+    {
+      "name": "oomkilled-pod-diagnosis",
+      "input": {
+        "platform": "EKS",
+        "k8s_version": "1.28",
+        "namespace": "payments",
+        "region": "us-east-1",
+        "node_count": "12",
+        "addons": "Istio, cert-manager, ExternalDNS",
+        "symptom": "Pod keeps restarting with CrashLoopBackOff",
+        "pod_name": "payment-processor-7d8f9c6b4-x2y3z",
+        "deployment_name": "payment-processor",
+        "image_name": "payment-processor",
+        "image_tag": "v2.14.3",
+        "restart_count": "12",
+        "pod_status": "CrashLoopBackOff",
+        "pod_age": "45m",
+        "resource_requests": "CPU: 500m, Memory: 512Mi",
+        "resource_limits": "CPU: 1000m, Memory: 1Gi"
+      },
+      "expected": {
+        "contains": ["kubectl logs --previous", "kubectl describe pod", "OOMKilled", "exit code 137", "resource limits", "memory request"]
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

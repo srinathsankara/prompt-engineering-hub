@@ -1,0 +1,65 @@
+{
+  "name": "root-cause-analysis-test-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/infrastructure/incident-response/infra_root-cause-analysis_v1.md",
+  "service_line": "infrastructure",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.8,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "Five Whys methodology traces symptom to systemic root cause",
+    "Root cause must be a systemic issue, not a person's mistake",
+    "Action items must have single accountable owner",
+    "Contributing factors enabled the immediate cause",
+    "Post-mortems must be blameless",
+    "Action types: Remediation, Prevention, Detection, Process"
+  ],
+  "ground_truth": [
+    "Five Whys",
+    "systemic issue",
+    "accountable owner",
+    "contributing factors",
+    "blameless",
+    "Remediation",
+    "Prevention",
+    "Detection",
+    "Process"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 10
+    }
+  },
+  "tests": [
+    {
+      "name": "database-connection-pool-exhaustion",
+      "input": {
+        "incident_id": "INC-2026-0415",
+        "incident_date": "2026-04-15",
+        "duration": "32 minutes",
+        "severity": "Sev2",
+        "service_name": "user-profile-service",
+        "application_name": "customer-portal",
+        "environment": "prod",
+        "timeline": "14:00 - Deploy v3.2.1 rolled out\n14:12 - Datadog alert: connection pool exhaustion\n14:14 - Page sent to on-call\n14:16 - Engineer acknowledges\n14:18 - Connection count at 200/200, all active\n14:22 - Identified new connection pool size of 5 (previous: 50)\n14:25 - Config change reverted via feature flag\n14:28 - Connections normalizing\n14:32 - Error rate back to baseline, incident resolved",
+        "error_before": "0.3",
+        "error_during": "18.5",
+        "error_after": "0.4",
+        "error_baseline": "0.3",
+        "latency_before": "120",
+        "latency_during": "4500",
+        "latency_after": "130",
+        "latency_baseline": "120",
+        "recent_changes": "PR #4823: 'Optimize connection pool settings' - changed max pool from 50 to 5",
+        "log_snippets": "ERROR: Unable to acquire JDBC connection - HikariPool-1 - Connection is not available, request timed out after 30000ms"
+      },
+      "expected": {
+        "contains": ["connection pool", "HikariPool", "PR #4823", "config validation", "Five Whys", "blameless"]
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

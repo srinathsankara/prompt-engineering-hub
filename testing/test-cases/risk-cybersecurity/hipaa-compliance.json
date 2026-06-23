@@ -1,0 +1,41 @@
+﻿{
+  "name": "hipaa-security-privacy-compliance-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/risk-cybersecurity/hipaa/risk-hipaa-security-privacy-compliance_advanced_v1.md",
+  "service_line": "risk-cybersecurity",
+  "complexity_tier": "advanced",
+  "threshold": { "accuracy": 0.8, "hallucination": 0.0 },
+  "known_facts": [
+    "HIPAA Security Rule has Administrative, Physical, and Technical Safeguards",
+    "Privacy Rule covers NPP, minimum necessary, patient rights, and administrative requirements",
+    "Breach Notification Rule requires 60-day notification for 500+ affected individuals",
+    "Risk analysis is the foundational HIPAA requirement",
+    "Business Associate Agreements required with all vendors handling ePHI",
+    "OCR enforces HIPAA with penalties up to $1.9M per violation category per year",
+    "Right of Access is the most common OCR enforcement action",
+    "Encryption is addressable but strongly preferred",
+    "HITECH Act expanded HIPAA to Business Associates directly",
+    "Ransomware is presumptively a breach under HIPAA"
+  ],
+  "ground_truth": ["Security Rule", "Privacy Rule", "Breach Notification Rule", "OCR", "BAA", "ePHI", "risk analysis", "right of access", "HITECH", "ransomware"],
+  "format": { "required": "markdown", "rules": { "max_sections": 12 } },
+  "tests": [
+    {
+      "name": "healthcare-provider-hipaa-audit",
+      "input": {
+        "org_name": "MercyCare Health System",
+        "entity_type": "Covered Entity",
+        "sub_type": "provider (multi-specialty practice)",
+        "org_size": "medium",
+        "ephi_volume": "250,000 patient records",
+        "prior_ocr": "resolved (2019 investigation -- incomplete risk analysis)",
+        "ephi_systems": "Epic EHR, Practice Fusion PM, MyChart patient portal, Office 365 email, file shares",
+        "cloud_services": "Azure (Epic hosted), AWS (backup/DR)",
+        "portable_devices": "200 laptops, 500 smartphones",
+        "remote_workforce": "60%"
+      },
+      "expected": { "contains": ["ePHI", "Security Rule", "risk analysis", "BAA", "OCR", "encryption", "breach notification", "MFA"] },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

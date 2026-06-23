@@ -1,0 +1,46 @@
+{
+  "name": "iso-42002-ai-risk-assessment-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/risk-cybersecurity/iso-42002/risk-iso42002-ai-risk-assessment_advanced_v1.md",
+  "service_line": "risk-cybersecurity",
+  "complexity_tier": "advanced",
+  "threshold": { "accuracy": 0.8, "hallucination": 0.0 },
+  "known_facts": [
+    "AI risk categories: technical, operational, ethical/societal, and compliance/regulatory",
+    "ISO 23894 provides AI risk management guidance",
+    "NIST AI RMF 1.0 is a complementary framework",
+    "Inherent risk is assessed without controls; residual risk is assessed with controls",
+    "AI risk indicators (ARIs) require continuous monitoring thresholds",
+    "Adversarial inputs, data poisoning, model inversion, and jailbreaking are technical AI risks",
+    "Algorithmic bias and fairness must address intersectional attributes",
+    "Hallucination risk requires RAG, grounding, and output validation",
+    "EU AI Act penalties can reach 7% of global turnover",
+    "AI incidents affecting fundamental rights require regulatory notification"
+  ],
+  "ground_truth": ["ISO 42002", "AI risk", "inherent risk", "residual risk", "ARI", "adversarial", "bias", "hallucination", "EU AI Act", "intersectional"],
+  "format": { "required": "markdown", "rules": { "max_sections": 12 } },
+  "tests": [
+    {
+      "name": "llm-chatbot-risk-assessment",
+      "input": {
+        "org_name": "AssistIQ Corp.",
+        "ai_governance_maturity": "defined",
+        "existing_framework": "NIST AI RMF 1.0",
+        "sector": "technology",
+        "regulatory_oversight": "none",
+        "ai_system_name": "AssistIQ Customer Support LLM",
+        "ai_type": "generative LLM (GPT-4o via Azure OpenAI)",
+        "deployment_model": "SaaS API",
+        "system_tier": "high-impact",
+        "data_modalities": "text (conversation), structured (customer data via RAG)",
+        "user_population": "500,000 end users",
+        "geography": "US, EU, UK, Canada",
+        "lifecycle_stage": "production",
+        "ai_system_full_description": "Multilingual customer support chatbot using Azure OpenAI GPT-4o with RAG on knowledge base. Handles refunds, order status, account changes, and product recommendations.",
+        "autonomy_level": "human-on-the-loop"
+      },
+      "expected": { "contains": ["AI risk", "hallucination", "adversarial", "bias", "jailbreaking", "inherent risk", "residual risk", "drift", "RAG"] },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

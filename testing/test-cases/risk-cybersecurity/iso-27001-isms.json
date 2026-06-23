@@ -1,0 +1,37 @@
+{
+  "name": "iso-27001-isms-implementation-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/risk-cybersecurity/iso-27001/risk-iso27001-isms-implementation_advanced_v1.md",
+  "service_line": "risk-cybersecurity",
+  "complexity_tier": "advanced",
+  "threshold": { "accuracy": 0.8, "hallucination": 0.0 },
+  "known_facts": [
+    "ISO 27001:2022 has 93 Annex A controls across 4 themes",
+    "PDCA cycle: Plan-Do-Check-Act",
+    "Statement of Applicability (SoA) must include ALL 93 controls with justification",
+    "Stage 1 audit is documentation review; Stage 2 is implementation verification",
+    "Surveillance audits occur annually; recertification every 3 years",
+    "Internal auditors must be independent of audited area",
+    "ISO 27001 follows the High-Level Structure (HLS) common to all ISO management standards"
+  ],
+  "ground_truth": ["93 Annex A controls", "PDCA", "Statement of Applicability", "Stage 1", "Stage 2", "surveillance", "internal audit", "HLS"],
+  "format": { "required": "markdown", "rules": { "max_sections": 12 } },
+  "tests": [
+    {
+      "name": "tech-company-isms-implementation",
+      "input": {
+        "org_name": "CloudMatrix Technologies",
+        "industry": "SaaS / Cloud Infrastructure",
+        "employee_count": "350",
+        "isms_scope": "Entire organization including all SaaS products and corporate systems",
+        "security_maturity": "managed",
+        "existing_certifications": "SOC 2 Type II",
+        "target_certification_date": "2027-03-31",
+        "existing_mss": "SOC 2 Type II",
+        "compliance_obligations": "GDPR, SOC 2, ISO 27001"
+      },
+      "expected": { "contains": ["93 controls", "Annex A", "SoA", "risk assessment", "Stage 1", "Stage 2", "internal audit", "management review"] },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

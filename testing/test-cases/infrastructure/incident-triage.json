@@ -1,0 +1,65 @@
+{
+  "name": "incident-triage-sev1-test-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/infrastructure/incident-response/infra_incident-triage_sev1-v2_v1.md",
+  "service_line": "infrastructure",
+  "complexity_tier": "advanced",
+  "threshold": {
+    "accuracy": 0.8,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "Sev1 incidents require 5 minute response time",
+    "First step is always to acknowledge the alert",
+    "Stop the bleed before investigating root cause",
+    "Rollback is the fastest mitigation for a bad deployment",
+    "CloudWatch Logs Insights uses query syntax for log analysis",
+    "KQL is used for Azure Log Analytics queries",
+    "PagerDuty is the primary notification channel",
+    "Always check recent changes first when triaging"
+  ],
+  "ground_truth": [
+    "5 minute response time",
+    "acknowledge the alert",
+    "stop the bleed",
+    "rollback",
+    "CloudWatch Logs Insights",
+    "KQL",
+    "PagerDuty",
+    "recent changes"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "required_disclaimer": "",
+      "max_sections": 10
+    }
+  },
+  "tests": [
+    {
+      "name": "aws-ecs-high-error-rate",
+      "input": {
+        "severity": "Sev1",
+        "service_name": "payment-processing-service",
+        "environment": "prod",
+        "cloud_provider": "AWS",
+        "error_rate": "23.5",
+        "error_rate_baseline": "0.5",
+        "latency_p99": "8400",
+        "latency_baseline": "450",
+        "reported_by": "Datadog alert",
+        "time_detected": "2026-06-15 14:32 UTC",
+        "current_impact": "All payment processing failing, users cannot complete checkout",
+        "recent_changes": "Deploy v2.14.3 rolled out at 14:15 UTC - updated payment gateway client library",
+        "deployment_status": "v2.14.3 - rolled out to 100% at 14:15",
+        "alert_firing": "payment-processing-error-rate > 5% for 5m",
+        "log_snippet": "ERROR 2026-06-15 14:18:32 - PaymentGatewayClient: connection refused to api.payment-provider.com\nERROR 2026-06-15 14:18:33 - PaymentGatewayClient: timeout after 30s\nERROR 2026-06-15 14:18:35 - PaymentGatewayClient: SSL handshake failed"
+      },
+      "expected": {
+        "contains": ["rollback", "v2.14.3", "payment-gateway", "CloudWatch", "blast radius", "stop the bleed"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

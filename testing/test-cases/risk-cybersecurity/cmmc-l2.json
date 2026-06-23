@@ -1,0 +1,42 @@
+{
+  "name": "cmmc-level2-assessment-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/risk-cybersecurity/cmmc/risk-cmmc_level2-assessment_advanced_v1.md",
+  "service_line": "risk-cybersecurity",
+  "complexity_tier": "advanced",
+  "threshold": { "accuracy": 0.8, "hallucination": 0.0 },
+  "known_facts": [
+    "CMMC Level 2 requires 100% of 110 NIST SP 800-171 practices to be MET",
+    "C3PAO conducts Level 2 certification assessments",
+    "SPRS is the Supplier Performance Risk System for CMMC scores",
+    "DFARS 252.204-7012 requires safeguarding of covered defense information",
+    "POAMs require interim controls during remediation",
+    "CUI assets must be segregated or entire environment is in scope",
+    "FedRAMP Moderate authorization required for cloud services handling CUI",
+    "Phishing-resistant MFA required for privileged users"
+  ],
+  "ground_truth": ["CMMC Level 2", "110 practices", "C3PAO", "SPRS", "DFARS 252.204-7012", "POAM", "CUI", "FedRAMP Moderate", "MFA"],
+  "format": { "required": "markdown", "rules": { "max_sections": 12 } },
+  "tests": [
+    {
+      "name": "dod-prime-cmmc-readiness",
+      "input": {
+        "org_name": "AeroDefense Systems Inc.",
+        "cage_code": "7A8B9",
+        "entity_type": "prime contractor",
+        "current_level": "none",
+        "target_level": "Level 2",
+        "assessment_type": "gap analysis",
+        "cui_types": "Controlled Technical Information, Export Controlled Technology",
+        "total_assets": "250",
+        "cui_assets": "45",
+        "enclave_architecture": "hybrid (on-premise PLM, cloud ERP with FedRAMP)",
+        "cloud_provider": "Azure Government (FedRAMP High authorized)",
+        "previous_assessment_date": "2024-01-15",
+        "prior_poams": "8 open POAMs"
+      },
+      "expected": { "contains": ["110 practices", "C3PAO", "CUI", "POAM", "MFA", "encryption", "incident response"] },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

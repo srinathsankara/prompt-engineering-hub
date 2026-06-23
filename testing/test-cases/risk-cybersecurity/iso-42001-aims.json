@@ -1,0 +1,39 @@
+﻿{
+  "name": "iso-42001-aims-implementation-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/risk-cybersecurity/iso-42001/risk-iso42001-ai-management-system_advanced_v1.md",
+  "service_line": "risk-cybersecurity",
+  "complexity_tier": "advanced",
+  "threshold": { "accuracy": 0.8, "hallucination": 0.0 },
+  "known_facts": [
+    "ISO 42001:2023 is the AI Management System (AIMS) standard",
+    "High-risk AI classification per EU AI Act requires additional impact assessments",
+    "Model cards document AI system purpose, performance, limitations, and biases",
+    "AI risk categories include bias, accuracy, robustness, transparency, privacy, accountability, environmental",
+    "Third-party AI systems (API-based LLMs) are in scope of AIMS",
+    "Data drift and concept drift require continuous monitoring",
+    "Human oversight must be meaningful -- not just rubber-stamping"
+  ],
+  "ground_truth": ["ISO 42001", "AIMS", "EU AI Act", "model card", "AI risk", "data drift", "concept drift", "human oversight", "high-risk"],
+  "format": { "required": "markdown", "rules": { "max_sections": 10 } },
+  "tests": [
+    {
+      "name": "fintech-ai-governance",
+      "input": {
+        "org_name": "FinScore Analytics",
+        "industry": "Financial Services",
+        "ai_maturity": "scaling",
+        "ai_systems_count": "7",
+        "ai_types": "LLM, predictive ML, computer vision",
+        "ai_deployment": "API-based (Azure OpenAI) + self-hosted (PyTorch)",
+        "existing_mss": "ISO 27001, SOC 2",
+        "regulatory_exposure": "EU AI Act, GDPR",
+        "ai_system_name": "FinScore Credit Decision Engine",
+        "ai_system_purpose": "Automated credit underwriting for retail lending",
+        "ai_risk_class": "high-risk"
+      },
+      "expected": { "contains": ["ISO 42001", "AIMS", "model card", "risk assessment", "EU AI Act", "human oversight", "bias", "drift monitoring"] },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

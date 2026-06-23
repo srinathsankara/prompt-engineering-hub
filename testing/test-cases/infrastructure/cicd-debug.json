@@ -1,0 +1,63 @@
+{
+  "name": "ci-cd-pipeline-debug-test-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/infrastructure/ci-cd/infra_cicd-pipeline-debug_v1.md",
+  "service_line": "infrastructure",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.8,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "Lockfile drift causes non-reproducible builds",
+    "npm ci installs from lockfile, npm install regenerates it",
+    "Cache keys must include lockfile hash to invalidate properly",
+    "Expired service principal credentials cause deploy failures",
+    "Terraform state locks prevent concurrent applies",
+    "Flaky tests should be quarantined, not ignored",
+    "Pipeline timeout can be increased at the step level",
+    "Runner disk space issues cause build failures"
+  ],
+  "ground_truth": [
+    "lockfile",
+    "npm ci",
+    "npm install",
+    "cache key",
+    "service principal",
+    "terraform state lock",
+    "flaky tests",
+    "timeout",
+    "runner disk space"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 8
+    }
+  },
+  "tests": [
+    {
+      "name": "github-actions-npm-build-failure",
+      "input": {
+        "platform": "GitHub Actions",
+        "repo_name": "customer-portal",
+        "branch": "main",
+        "pipeline_name": "CI - Build and Test",
+        "run_id": "1234567890",
+        "trigger": "push",
+        "agent_type": "ubuntu-latest",
+        "failed_stage": "Build",
+        "job_name": "build-and-test",
+        "error_code": "1",
+        "error_message": "npm ERR! code ERESOLVE\nnpm ERR! ERESOLVE could not resolve\nnpm ERR!\nnpm ERR! While resolving: @company/ui-components@2.1.0\nnpm ERR! Found: react@18.2.0\nnpm ERR! node_modules/react\nnpm ERR!   react@\"^18.2.0\" from the root project\nnpm ERR!\nnpm ERR! Could not resolve dependency:\nnpm ERR! peer react@\"^17.0.0\" from @company/ui-components@2.1.0",
+        "dependency_changes": "Updated @company/ui-components from 2.0.0 to 2.1.0 in package.json",
+        "pipeline_changes": "None",
+        "agent_changes": "None"
+      },
+      "expected": {
+        "contains": ["ERESOLVE", "peer dependency", "lockfile", "npm ci", "dependency resolution"]
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}
