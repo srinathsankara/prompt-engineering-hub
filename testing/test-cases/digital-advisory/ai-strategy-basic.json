@@ -1,0 +1,24 @@
+{
+  "name": "ai-strategy-adoption-basic-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/digital-advisory/ai/digital_ai-strategy-adoption_basic_v1.md",
+  "service_line": "digital-advisory",
+  "complexity_tier": "basic",
+  "threshold": { "accuracy": 0.80, "hallucination": 0.0 },
+  "known_facts": [
+    "Data readiness is the #1 blocker for AI adoption",
+    "AI governance must be established before production deployment",
+    "Generative AI requires different implementation approach than traditional ML",
+    "Start with high-feasibility, medium-impact use cases for proof of concept"
+  ],
+  "ground_truth": ["AI readiness", "use case prioritization", "data readiness", "governance"],
+  "format": { "required": "markdown", "rules": { "max_sections": 6, "required_disclaimer": "" } },
+  "tests": [
+    {
+      "name": "mid-market-ai-assessment",
+      "input": { "industry": "professional services", "ai_maturity": "Exploring" },
+      "expected": { "contains": ["readiness", "use case", "feasibility", "data", "governance"], "format": "markdown" },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

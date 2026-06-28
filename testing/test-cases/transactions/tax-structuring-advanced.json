@@ -1,0 +1,61 @@
+{
+  "name": "transaction-tax-structuring-advanced-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/transactions/tax-structuring/transactions_tax-structuring-mergers-acquisitions_advanced_v1.md",
+  "service_line": "transactions",
+  "complexity_tier": "advanced",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "Stock sales by C corporations result in double taxation",
+    "Section 382 limits NOL usage after ownership change",
+    "338(h)(10) requires buyer and seller to jointly elect for S corps",
+    "Tax-free reorganizations under IRC 368 require continuity of interest >40%",
+    "QSBS Section 1202 exclusion can be up to 100% for stock held >5 years"
+  ],
+  "ground_truth": [
+    "Section 368",
+    "338(h)(10)",
+    "Section 382",
+    "QSBS",
+    "double taxation"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 6,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "c-corp-acquisition",
+      "input": {
+        "target_jurisdiction": "Delaware",
+        "buyer_jurisdiction": "Delaware",
+        "seller_type": "C corp",
+        "transaction_value": "$100,000,000"
+      },
+      "expected": {
+        "contains": ["Section 368", "asset sale", "stock sale", "double taxation", "Section 382"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "s-corp-target",
+      "input": {
+        "seller_type": "S corp",
+        "target_jurisdiction": "Texas",
+        "transaction_value": "$50,000,000"
+      },
+      "expected": {
+        "contains": ["338(h)(10)", "S corporation", "built-in gains", "Section 1374"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

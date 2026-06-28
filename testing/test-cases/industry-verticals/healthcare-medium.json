@@ -1,0 +1,24 @@
+{
+  "name": "healthcare-provider-compliance-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/industry-verticals/healthcare/industry_healthcare-provider-compliance_medium_v1.md",
+  "service_line": "industry-verticals",
+  "complexity_tier": "medium",
+  "threshold": { "accuracy": 0.85, "hallucination": 0.0 },
+  "known_facts": [
+    "HIPAA breach notification: report within 60 days for 500+ record breaches",
+    "Stark Law prohibits physician referrals to entities with financial relationships",
+    "340B program requires auditable tracking of drug purchases and patient eligibility",
+    "Revenue cycle KPIs include Days in AR, Clean Claim Rate, and Net Collection Rate"
+  ],
+  "ground_truth": ["HIPAA", "Stark Law", "340B", "revenue cycle", "reimbursement"],
+  "format": { "required": "markdown", "rules": { "max_sections": 5, "required_disclaimer": "" } },
+  "tests": [
+    {
+      "name": "hospital-compliance",
+      "input": { "provider_type": "hospital", "annual_revenue": "$100,000,000" },
+      "expected": { "contains": ["HIPAA", "compliance", "revenue cycle", "reimbursement"], "format": "markdown" },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

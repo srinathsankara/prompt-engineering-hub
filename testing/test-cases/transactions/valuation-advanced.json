@@ -1,0 +1,60 @@
+{
+  "name": "business-valuation-ppa-advanced-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/transactions/valuation/transactions_business-valuation-ppa_advanced_v1.md",
+  "service_line": "transactions",
+  "complexity_tier": "advanced",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "ASC 805 requires fair value measurement for all identifiable assets and liabilities",
+    "Goodwill is the residual after allocating purchase price to identifiable assets",
+    "MEEM is the preferred method for customer relationships",
+    "Relief from Royalty method applies to trade names and trademarks",
+    "Assembled workforce is NOT a recognized intangible under ASC 805"
+  ],
+  "ground_truth": [
+    "ASC 805",
+    "goodwill",
+    "identifiable intangible assets",
+    "MEEM",
+    "Relief from Royalty"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 7,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "tech-acquisition",
+      "input": {
+        "industry": "software",
+        "target_public_status": "private",
+        "transaction_type": "business combination"
+      },
+      "expected": {
+        "contains": ["ASC 805", "goodwill", "DCF", "customer relationships", "developed technology"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "manufacturing-ppa",
+      "input": {
+        "industry": "manufacturing",
+        "target_public_status": "private",
+        "consideration_value": "$200,000,000"
+      },
+      "expected": {
+        "contains": ["ASC 805", "goodwill", "PP&E", "tradename", "backlog"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

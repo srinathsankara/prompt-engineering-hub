@@ -1,0 +1,24 @@
+{
+  "name": "opportunity-zone-fund-investment-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/strategic-financing/opportunity-zones/strategic_opportunity-zone-fund-investment_medium_v1.md",
+  "service_line": "strategic-financing",
+  "complexity_tier": "medium",
+  "threshold": { "accuracy": 0.85, "hallucination": 0.0 },
+  "known_facts": [
+    "Capital gain must be invested in a QOF within 180 days of gain realization",
+    "Basis step-up: 10% for 5 years, additional 5% for 7 years (15% total)",
+    "Deferred gain recognized on December 31, 2026",
+    "QOF must hold 90% of assets in qualified opportunity zone property"
+  ],
+  "ground_truth": ["Section 1400Z-2", "QOF", "180 days", "basis step-up", "deferred gain"],
+  "format": { "required": "markdown", "rules": { "max_sections": 5, "required_disclaimer": "" } },
+  "tests": [
+    {
+      "name": "oz-fund-analysis",
+      "input": { "capital_gain_amount": "$5,000,000", "project_type": "real estate" },
+      "expected": { "contains": ["QOF", "deferred gain", "basis step-up", "180 days"], "format": "markdown" },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

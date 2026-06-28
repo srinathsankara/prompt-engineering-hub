@@ -1,0 +1,57 @@
+{
+  "name": "retirement-planning-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/wealth-management/planning/wealth_retirement-planning_medium_v1.md",
+  "service_line": "wealth-management",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "RMDs begin at age 73 under SECURE 2.0 Act",
+    "Roth IRA contributions are not tax-deductible but withdrawals are tax-free",
+    "Social Security full retirement age is 67 for those born after 1960",
+    "Catch-up contributions of $7,500 allowed for age 50+ in 401(k) plans",
+    "Roth conversion ladders require 5-year holding period"
+  ],
+  "ground_truth": [
+    "SECURE 2.0 Act",
+    "RMDs at age 73",
+    "Roth conversion 5-year rule",
+    "catch-up contributions $7,500",
+    "Social Security FRA 67"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 10,
+      "required_disclaimer": "This document is for informational purposes"
+    }
+  },
+  "tests": [
+    {
+      "name": "standard-retirement-45-year-old",
+      "input": {
+        "client_age": "45",
+        "annual_income": "150000",
+        "current_savings": "350000",
+        "monthly_contribution": "1500",
+        "risk_tolerance": "moderate",
+        "retirement_age_goal": "65",
+        "life_expectancy": "90",
+        "other_income_sources": "Social Security, rental property",
+        "growth_rate_assumption": "6",
+        "inflation_assumption": "3",
+        "post_retirement_return": "4",
+        "increase_option_1": "10",
+        "increase_option_2": "20"
+      },
+      "expected": {
+        "contains": ["RMD", "catch-up", "Roth conversion", "Social Security"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

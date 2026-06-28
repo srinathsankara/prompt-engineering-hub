@@ -1,0 +1,24 @@
+﻿{
+  "name": "fractional-cfo-consulting-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/people-workforce/fractional-cxo/people_fractional-cfo-consulting_medium_v1.md",
+  "service_line": "people-workforce",
+  "complexity_tier": "medium",
+  "threshold": { "accuracy": 0.85, "hallucination": 0.0 },
+  "known_facts": [
+    "Cash flow forecasting (13-week rolling) is the #1 value-add for early-stage companies",
+    "Fractional CFO should spend no more than 20% of time on transaction processing",
+    "Board reporting should be concise -- 5-page max with P&L, cash flow, KPIs, risks",
+    "For PE-backed companies, lender covenant monitoring is table stakes"
+  ],
+  "ground_truth": ["cash flow forecasting", "board reporting", "fractional CFO", "90-day plan"],
+  "format": { "required": "markdown", "rules": { "max_sections": 6, "required_disclaimer": "" } },
+  "tests": [
+    {
+      "name": "startup-fractional-cfo",
+      "input": { "company_stage": "growth", "revenue": "$10,000,000" },
+      "expected": { "contains": ["cash flow", "board reporting", "90-day", "forecast"], "format": "markdown" },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

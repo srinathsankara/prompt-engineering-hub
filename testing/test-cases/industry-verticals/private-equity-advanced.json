@@ -1,0 +1,24 @@
+{
+  "name": "private-equity-portfolio-analysis-advanced-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/industry-verticals/private-equity/industry_private-equity-portfolio-analysis_advanced_v1.md",
+  "service_line": "industry-verticals",
+  "complexity_tier": "advanced",
+  "threshold": { "accuracy": 0.85, "hallucination": 0.0 },
+  "known_facts": [
+    "IRR calculations should use cash flow-based method consistent with ILPA standards",
+    "Carried interest waterfall distributions follow the LPA order of tiers",
+    "Watch list triggers: debt/EBITDA >5x, negative growth, margin decline >500bps",
+    "Management company tax structuring must address UBTI and blocker corporations"
+  ],
+  "ground_truth": ["IRR", "MOIC", "waterfall", "carried interest", "portfolio monitoring"],
+  "format": { "required": "markdown", "rules": { "max_sections": 6, "required_disclaimer": "" } },
+  "tests": [
+    {
+      "name": "buyout-fund-analysis",
+      "input": { "fund_strategy": "buyout", "aum": "$2,000,000,000", "portfolio_count": "12" },
+      "expected": { "contains": ["IRR", "MOIC", "waterfall", "portfolio", "carried interest"], "format": "markdown" },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

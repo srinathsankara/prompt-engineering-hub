@@ -1,0 +1,62 @@
+{
+  "name": "compensation-benchmarking-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/people-workforce/compensation-benchmarking/people_compensation-benchmarking-analysis_medium_v1.md",
+  "service_line": "people-workforce",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "Compa-ratio = (Current Salary / Market P50) * 100",
+    "Target compa-ratio range is 95-105% for market-competitive positions",
+    "Jobs with <5 survey matches need regression-based estimation",
+    "Pay equity analysis requires minimum 5 incumbents per group",
+    "Section 162(m) applies to publicly held companies only"
+  ],
+  "ground_truth": [
+    "compa-ratio",
+    "market P50",
+    "total rewards",
+    "pay equity",
+    "benchmarking"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 7,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "tech-company-analysis",
+      "input": {
+        "industry": "technology",
+        "revenue": "$100,000,000",
+        "headcount": "500",
+        "comp_philosophy": "market leader"
+      },
+      "expected": {
+        "contains": ["compa-ratio", "market P50", "total rewards", "benchmarking"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "private-equity-portfolio",
+      "input": {
+        "industry": "healthcare",
+        "ownership": "PE-backed",
+        "headcount": "200",
+        "target_percentile": "75"
+      },
+      "expected": {
+        "contains": ["compa-ratio", "LTI", "EBITDA", "performance-based", "total rewards"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

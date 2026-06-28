@@ -1,0 +1,24 @@
+{
+  "name": "wealth-securities-compliance-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/wealth-management/compliance/wealth_securities-compliance-regulation_medium_v1.md",
+  "service_line": "wealth-management",
+  "complexity_tier": "medium",
+  "threshold": { "accuracy": 0.85, "hallucination": 0.0 },
+  "known_facts": [
+    "RIAs must file Form ADV annually within 90 days of fiscal year end",
+    "Reg BI requires broker-dealers to act in retail customer's best interest",
+    "Custody Rule requires surprise examination and qualified custodian",
+    "SEC exams focus on fiduciary duty, conflicts, custody, and cybersecurity"
+  ],
+  "ground_truth": ["Form ADV", "Reg BI", "Custody Rule", "fiduciary duty", "SEC"],
+  "format": { "required": "markdown", "rules": { "max_sections": 6, "required_disclaimer": "" } },
+  "tests": [
+    {
+      "name": "ria-compliance-review",
+      "input": { "firm_type": "RIA", "aum": "$500,000,000" },
+      "expected": { "contains": ["Form ADV", "Custody Rule", "compliance", "SEC", "fiduciary"], "format": "markdown" },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

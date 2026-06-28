@@ -1,0 +1,61 @@
+{
+  "name": "nmtc-allocation-analysis-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/strategic-financing/new-markets-tax-credits/strategic_nmtc-allocation-analysis_medium_v1.md",
+  "service_line": "strategic-financing",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "NMTC provides 39% federal tax credit over 7 years under IRC Section 45D",
+    "Credit is 5% per year for first 3 years, 6% per year for last 4 years",
+    "CDE must use at least 85% of QEI proceeds within 12 months",
+    "Credit is non-refundable and claimed on Form 8873",
+    "Residential rental over 80% disqualifies NMTC eligibility"
+  ],
+  "ground_truth": [
+    "Section 45D",
+    "NMTC",
+    "QALICB",
+    "QLIC",
+    "CDFI Fund",
+    "Form 8873"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 7,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "manufacturing-project",
+      "input": {
+        "project_type": "manufacturing",
+        "total_project_cost": "$20,000,000",
+        "nmtc_allocation_sought": "$15,000,000"
+      },
+      "expected": {
+        "contains": ["Section 45D", "QALICB", "QLIC", "CDE", "39%"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "healthcare-facility",
+      "input": {
+        "project_type": "healthcare",
+        "total_project_cost": "$35,000,000",
+        "nmtc_allocation_sought": "$25,000,000"
+      },
+      "expected": {
+        "contains": ["Section 45D", "QALICB", "QLIC", "census tract", "community impact"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}
