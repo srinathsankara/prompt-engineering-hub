@@ -12,7 +12,7 @@ If you're new: think of each file as a recipe. Pick the one that matches what yo
 
 ```text
 prompt-engineering-hub/
-├── prompts/              ← The library: 102 prompts across 13 service lines
+├── prompts/              ← The library: 110 prompts across 13 service lines
 ├── skills/               ← Deployable Claude skills (workflows, components, agents)
 ├── patterns/             ← Reusable prompt engineering patterns (few-shot, CoT, RAG)
 ├── testing/              ← Validation so prompts don't regress
@@ -49,7 +49,7 @@ prompt-engineering-hub/
 | **Advisory** | 8 | Risk assessment, IPO readiness, CAS setup & transition, management consulting, deal advisory, digital transformation, forensic accounting, transaction advisory |
 | **Architecture** | 10 | Analysis of alternatives, proposal writing, architecture narratives & white papers, solution workshop facilitation, cloud modernization roadmaps, SRE & observability strategy, disaster recovery & BCP, AI-enabled platform architecture, developer platform / paved roads, governance & compliance |
 | **Digital Workplace** | 13 | EUC standards & XLAs, M365/Teams/Zoom/Slack hub strategy, operational resilience & DORA/SLO/SLI, Zero Trust & AI TRiSM, K8s paved roads & platform engineering, observability & user sentiment analytics, M&A tech due diligence, multi-cloud infrastructure, CI/CD DevSecOps toolchains, SRE / DORA metrics, agentic AI workflows, Secure SDLC & compliance (PCI/SOC 2/HIPAA/GDPR) |
-| **Infrastructure / SRE** | 11 | Incident response (sev1 triage, RCA, post-mortems), Kubernetes debugging, Terraform review, CI/CD pipeline debug, vulnerability triage, monitoring setup, database performance tuning, cloud cost analysis, disaster recovery |
+| **Infrastructure / SRE** | 19 | Incident response, K8s debugging & architecture, Terraform module review & state management, CI/CD pipeline debug, vulnerability triage, Docker & containers, Helm chart authoring, GitOps (ArgoCD/Flux), service mesh (Istio), secrets management (Vault), Prometheus & metrics pipeline, monitoring setup, database tuning, cloud cost analysis, disaster recovery |
 | **Transactions** | 6 | Quality of earnings, M&A tax structuring, business valuation & PPA, deal advisory, forensic dispute, IT due diligence, transaction tax / SALT planning |
 | **Risk & Cybersecurity** | 17 | CMMC L2, ISO 27001/42001/42002, HIPAA, SOX, NIST CSF 2.0, CFIUS compliance & NSA oversight, defense & federal compliance (DFARS/FAR/CMMC 2.0/NERC CIP), NIST-ISO framework harmonization, GRC automation & AI-enabled compliance, cross-functional compliance operations, AI governance operating model, AI regulatory compliance strategy, AI model risk management lifecycle, responsible AI & ethics, AI assurance & audit |
 | **Digital Advisory** | 4 | ERP system selection, AI strategy, analytics & automation, technology benchmarking |
@@ -104,7 +104,7 @@ tags: ["cost-segregation", "MACRS", "depreciation", "bonus-depreciation"]
 
 ## For junior engineers (Infrastructure/SRE prompts)
 
-If you're supporting 400+ production apps on AWS/Azure and you just joined the team, these 11 prompts are your cheat codes. You can operate at a senior level with basic Linux and cloud knowledge:
+If you're supporting 400+ production apps on AWS/Azure and you just joined the team, these 19 prompts are your cheat codes. You can operate at a senior level with basic Linux and cloud knowledge:
 
 - **Sev1 happening right now?** → `prompts/infrastructure/incident-response/infra_incident-triage_sev1-v2_v1.md` -- walks you through triage, containment, escalation, and fix steps with actual commands and diagnostic questions.
 - **Pod won't start?** → `prompts/infrastructure/kubernetes/infra_k8s-debugging_medium_v1.md` -- covers CrashLoopBackOff, OOMKilled, ImagePullBackOff, and ten other failure modes with structured diagnosis trees.
@@ -161,15 +161,15 @@ The test runner (`testing/frameworks/prompt-validator.ps1`) runs all of these au
 
 - **YAML frontmatter?** So the CI/CD pipeline can parse, sort, filter, and validate prompts without reading the actual content. The library-sync workflow uses frontmatter tags to build a searchable index.
 - **Double-brace variables?** Consistent with Jinja2 and Handlebars. Also trivial to find with regex (`\{\{.*?\}\}`) so validation can check all placeholders are filled before deployment.
-- **Separate test suites?** Each test validates a specific input/output pair. When a prompt changes, you run the suite. Tests pass means the prompt still works. No regressions across 102 prompts.
+- **Separate test suites?** Each test validates a specific input/output pair. When a prompt changes, you run the suite. Tests pass means the prompt still works. No regressions across 110 prompts.
 - **Separate skills/ from prompts/?** A prompt is a single file. A skill is a deployable Claude configuration that may chain multiple prompts, include tool definitions, and have its own lifecycle. Keeping them separate lets me version each independently.
 
 ---
 
 ## Quick stats
 
-- **102 prompts** across 13 service lines
+- **110 prompts** across 13 service lines
 - **30 test suites** with automated validation
-- **11 infrastructure / SRE prompts** for cloud operations
+- **19 infrastructure / SRE prompts** for cloud operations
 - **17 risk & cybersecurity prompts** (CFIUS & NSA compliance, DFARS/FAR/CMMC 2.0, NIST CSF/800-53/800-171, ISO 27001/42001/42002, AI governance, HIPAA, SOX)
 - **CI/CD** with GitHub Actions (validation + skill deployment + library sync)
