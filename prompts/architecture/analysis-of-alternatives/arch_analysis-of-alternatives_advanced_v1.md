@@ -11,7 +11,7 @@ reviewer: Srinath Sankara
 created_date: 2026-07-23
 last_modified: 2026-07-23
 tags: ["analysis-of-alternatives", "aoa", "trade-study", "decision-framework", "solution-architecture", "enterprise-architecture", "claude"]
-test_suites: []
+test_suites: ["test-cases/architecture/aoa-comparison.json"]
 ---
 
 ## system_prompt

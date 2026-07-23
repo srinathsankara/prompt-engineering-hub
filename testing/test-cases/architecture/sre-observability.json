@@ -1,0 +1,58 @@
+{
+  "name": "architecture-sre-observability-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/architecture/sre-observability/arch_sre-observability-strategy_advanced_v1.md",
+  "service_line": "architecture",
+  "complexity_tier": "advanced",
+  "threshold": { "accuracy": 0.8, "hallucination": 0.0 },
+  "known_facts": [
+    "SRE is about reliability engineering, not just monitoring",
+    "SLOs define targets, SLIs measure performance, error budgets track remaining risk",
+    "Four golden signals: latency, traffic, errors, saturation",
+    "Toil reduces toil, automation increases leverage",
+    "Blameless post-mortems are essential for learning culture"
+  ],
+  "ground_truth": ["SRE", "SLO", "SLI", "error budget", "golden signals", "toil", "blameless post-mortem"],
+  "format": { "required": "markdown", "rules": { "max_sections": 10 } },
+  "tests": [
+    {
+      "name": "fintech-sre-strategy",
+      "input": {
+        "platform_name": "Payments Platform",
+        "current_state": "Reactive monitoring with basic CloudWatch dashboards, no SLOs defined, on-call rotation exists but no escalation policy",
+        "service_count": "24",
+        "team_size": "3 SRE, 12 dev",
+        "current_pager_fatigue": "15 alerts per night per engineer, 40% false positives",
+        "target_reliability": "99.95% uptime for transaction processing, 99.9% for reporting",
+        "compliance_requirements": "PCI DSS, SOX",
+        "key_dependencies": "AWS (EKS, RDS, ElastiCache, SQS, MSK), Stripe, Plaid, Datadog",
+        "slo_1_name": "Payment Authorization",
+        "slo_1_target": "99.95% success rate, <500ms p99 latency",
+        "slo_1_sli_definition": "Ratio of successful 200/201 responses to total payment authorization requests, measured per minute",
+        "error_budget_1": "0.05% = ~21 minutes of failed authorizations per month",
+        "slo_2_name": "Transaction History Lookup",
+        "slo_2_target": "99.9% success rate, <2s p99 latency",
+        "slo_2_sli_definition": "Ratio of successful read responses to total transaction history queries",
+        "error_budget_2": "0.1% = ~43 minutes of failed lookups per month",
+        "slo_3_name": "Webhook Delivery",
+        "slo_3_target": "99.99% delivery within 30 seconds of event",
+        "slo_3_sli_definition": "Ratio of webhooks delivered within 30s to total webhooks triggered",
+        "error_budget_3": "0.01% = ~4 minutes of late deliveries per month",
+        "tools_logging": "Datadog Logs with log-based metrics for all services",
+        "tools_metrics": "Datadog Metrics + CloudWatch (AWS managed services)",
+        "tools_tracing": "Datadog APM with distributed tracing for 12 of 24 services",
+        "tools_dashboards": "Service-specific dashboards in Datadog, no consistent dashboard standard",
+        "tools_oncall": "PagerDuty with event intelligence and auto-escalation",
+        "tools_runbooks": "Confluence-based runbooks, inconsistent coverage, rarely updated",
+        "gap_1": "APM tracing coverage is only 50% of services, missing dependency mapping for remaining services",
+        "gap_1_fix": "Enable Datadog APM auto-instrumentation for remaining 12 services, prioritize by traffic volume",
+        "gap_2": "No centralized SLO dashboard -- SLOs exist in a spreadsheet, not in Datadog",
+        "gap_2_fix": "Create Datadog SLO resources using Terraform, import existing targets from spreadsheet",
+        "gap_3": "Runbooks are not tested during game days, only during incidents",
+        "gap_3_fix": "Implement quarterly game days with runbook validation as a pass/fail criterion"
+      },
+      "expected": { "contains": ["SLO", "error budget", "SLI", "toil", "golden signals", "Datadog", "PagerDuty"] },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

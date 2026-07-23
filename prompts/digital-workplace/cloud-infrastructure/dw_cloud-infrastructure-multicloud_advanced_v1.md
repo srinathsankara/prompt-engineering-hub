@@ -11,7 +11,7 @@ reviewer: Srinath Sankara
 created_date: 2026-07-23
 last_modified: 2026-07-23
 tags: ["cloud-infrastructure", "aws", "azure", "gcp", "kubernetes", "docker", "terraform", "zero-trust", "multi-tenant", "claude"]
-test_suites: []
+test_suites: ["test-cases/digital-workplace/cloud-infrastructure.json"]
 ---
 
 ## system_prompt

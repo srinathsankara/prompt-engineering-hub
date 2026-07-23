@@ -41,7 +41,7 @@
       },
       "risk-cybersecurity": {
         "display_name": "Risk & Cybersecurity",
-        "subcategories": ["cybersecurity", "internal-audit", "sox-compliance", "risk-advisory", "risk-analytics", "cmmc", "iso-27001", "iso-42001", "iso-42002", "hipaa", "nist-csf"],
+        "subcategories": ["cybersecurity", "internal-audit", "sox-compliance", "risk-advisory", "risk-analytics", "cmmc", "iso-27001", "iso-42001", "iso-42002", "hipaa", "nist-csf", "cfius", "ai-governance"],
         "color": "#00b894",
         "description": "Cybersecurity assessments, internal audit, SOX compliance, risk advisory, and risk analytics prompts"
       },
@@ -68,6 +68,18 @@
         "subcategories": ["not-for-profit", "government-contracting", "healthcare", "financial-services", "real-estate-construction", "private-equity", "manufacturing", "technology"],
         "color": "#fab1a0",
         "description": "Industry-specific prompts for NFP, GovCon, healthcare, financial services, real estate, PE, manufacturing, and technology"
+      },
+      "architecture": {
+        "display_name": "Architecture",
+        "subcategories": ["analysis-of-alternatives", "proposal-writing", "narrative-drafting", "workshop-facilitation", "cloud-modernization", "sre-observability", "disaster-recovery", "ai-platform", "developer-platform", "governance-compliance"],
+        "color": "#2d3436",
+        "description": "Solution architecture, analysis of alternatives, cloud modernization, SRE, AI platforms, and governance prompts"
+      },
+      "digital-workplace": {
+        "display_name": "Digital Workplace",
+        "subcategories": ["service-vision", "procurement", "collaboration", "operational-resilience", "ai-trism", "paved-road", "observability", "executive-leadership", "cloud-infrastructure", "cicd-devsecops", "observability-sre", "ai-development", "compliance-governance"],
+        "color": "#6c5ce7",
+        "description": "Digital workplace strategy, collaboration platforms, EUC standards, SRE, DevSecOps, AI governance, and operational resilience prompts"
       }
     },
     "use_case_types": {

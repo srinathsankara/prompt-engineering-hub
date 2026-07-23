@@ -85,4 +85,4 @@ $report.overall = if ($report.failed -eq 0) { "pass" } else { "fail" }
 
 $report | ConvertTo-Json -Depth 5 | Out-File $OutputPath
 Write-Host "Validation complete. Passed: $($report.passed), Failed: $($report.failed), Overall: $($report.overall)"
-exit ($report.failed -gt 0 ? 1 : 0)
+if ($report.failed -gt 0) { exit 1 } else { exit 0 }

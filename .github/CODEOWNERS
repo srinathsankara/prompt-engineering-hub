@@ -1,27 +1,36 @@
 # Default owners for the entire repository
-* @cherrybekaert/prompt-engineering-team
+* @srinathsankara
 
 # Prompt library by service line
-/prompts/tax/ @cherrybekaert/tax-sme @cherrybekaert/prompt-engineering-team
-/prompts/assurance/ @cherrybekaert/assurance-sme @cherrybekaert/prompt-engineering-team
-/prompts/advisory/ @cherrybekaert/advisory-sme @cherrybekaert/prompt-engineering-team
-/prompts/wealth-management/ @cherrybekaert/wealth-sme @cherrybekaert/prompt-engineering-team
+/prompts/tax/ @srinathsankara
+/prompts/assurance/ @srinathsankara
+/prompts/advisory/ @srinathsankara
+/prompts/architecture/ @srinathsankara
+/prompts/digital-workplace/ @srinathsankara
+/prompts/infrastructure/ @srinathsankara
+/prompts/risk-cybersecurity/ @srinathsankara
+/prompts/transactions/ @srinathsankara
+/prompts/digital-advisory/ @srinathsankara
+/prompts/industry-verticals/ @srinathsankara
+/prompts/wealth-management/ @srinathsankara
+/prompts/strategic-financing/ @srinathsankara
+/prompts/people-workforce/ @srinathsankara
 
 # Skills and agents
-/skills/ @cherrybekaert/workflow-architect @cherrybekaert/prompt-engineering-team
+/skills/ @srinathsankara
 
 # Patterns
-/patterns/ @cherrybekaert/workflow-architect
+/patterns/ @srinathsankara
 
 # Testing framework
-/testing/ @cherrybekaert/prompt-engineering-team @cherrybekaert/qa-team
+/testing/ @srinathsankara
 
 # Configuration
-/config/ @cherrybekaert/workflow-architect
+/config/ @srinathsankara
 
 # CI/CD
-/.github/ @cherrybekaert/workflow-architect @cherrybekaert/platform-admin
+/.github/ @srinathsankara
 
 # Training and knowledge base
-/knowledge-base/ @cherrybekaert/prompt-engineering-team
-/training/ @cherrybekaert/ambassador-lead @cherrybekaert/prompt-engineering-team
+/knowledge-base/ @srinathsankara
+/training/ @srinathsankara

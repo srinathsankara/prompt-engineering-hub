@@ -11,7 +11,7 @@ reviewer: Srinath Sankara
 created_date: 2026-07-23
 last_modified: 2026-07-23
 tags: ["collaboration", "microsoft-365", "teams", "zoom", "slack", "docusign", "atlassian", "digital-hub", "claude"]
-test_suites: []
+test_suites: ["test-cases/digital-workplace/collaboration-hub.json"]
 ---
 
 ## system_prompt

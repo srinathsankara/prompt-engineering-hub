@@ -11,7 +11,7 @@ reviewer: Srinath Sankara
 created_date: 2026-07-23
 last_modified: 2026-07-23
 tags: ["workshop-facilitation", "requirements-gathering", "stakeholder-workshop", "solutioning", "technical-engagement", "claude"]
-test_suites: []
+test_suites: ["test-cases/architecture/workshop-facilitation.json"]
 ---
 
 ## system_prompt

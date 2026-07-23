@@ -169,7 +169,7 @@ The test runner (`testing/frameworks/prompt-validator.ps1`) runs all of these au
 ## Quick stats
 
 - **110 prompts** across 13 service lines
-- **30 test suites** with automated validation
+- **36 test suites** with automated validation
 - **19 infrastructure / SRE prompts** for cloud operations
 - **17 risk & cybersecurity prompts** (CFIUS & NSA compliance, DFARS/FAR/CMMC 2.0, NIST CSF/800-53/800-171, ISO 27001/42001/42002, AI governance, HIPAA, SOX)
 - **CI/CD** with GitHub Actions (validation + skill deployment + library sync)

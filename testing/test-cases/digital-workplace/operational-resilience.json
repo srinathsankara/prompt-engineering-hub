@@ -1,0 +1,59 @@
+{
+  "name": "digital-workplace-resilience-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/digital-workplace/operational-resilience/dw_operational-resilience-sre_advanced_v1.md",
+  "service_line": "digital-workplace",
+  "complexity_tier": "advanced",
+  "threshold": { "accuracy": 0.8, "hallucination": 0.0 },
+  "known_facts": [
+    "DORA and SRE practices drive operational resilience",
+    "SLOs, SLIs, and error budgets define reliability targets",
+    "Game days test incident response capabilities proactively",
+    "Blameless post-mortems prevent recurrence",
+    "Chaos engineering validates system behavior under failure",
+    "Observability must span logs, metrics, and traces"
+  ],
+  "ground_truth": ["DORA", "SRE", "SLO", "error budget", "game day", "chaos engineering", "post-mortem", "observability"],
+  "format": { "required": "markdown", "rules": { "max_sections": 10 } },
+  "tests": [
+    {
+      "name": "ecommerce-platform-resilience",
+      "input": {
+        "organization": "RetailDirect",
+        "platform_description": "E-commerce platform processing $2B annual GMV across 15 countries",
+        "service_count": "42 microservices",
+        "team_structure": "4 SRE, 20 dev (5 feature teams), 1 platform team",
+        "current_reliability": "99.92% uptime last quarter, 3 Sev1 incidents, MTTR 45 minutes",
+        "target_reliability": "99.97% uptime, MTTR < 15 minutes for critical path",
+        "compliance_scope": "PCI DSS Level 1, SOC 2 Type II, GDPR",
+        "critical_path_services": "checkout-service, payment-gateway, cart-service, inventory-service, auth-service, order-service",
+        "critical_path_slo": "99.99% availability, <200ms p95 latency, zero failed payments due to platform",
+        "non_critical_slo": "99.9% availability, <1s p95 latency",
+        "error_budget_policy": "50% consumed: freeze feature releases, 80% consumed: rollback non-critical changes",
+        "dora_metric_deployment": "Deploy frequency: daily (target: multiple deploys per day)",
+        "dora_metric_lead_time": "Lead time: 4 hours (target: <1 hour)",
+        "dora_metric_mttr": "MTTR: 45 minutes (target: <15 minutes critical, <30 minutes non-critical)",
+        "dora_metric_change_fail": "Change fail rate: 8% (target: <5%)",
+        "observability_tools": "Datadog (metrics + traces), ELK (logs), PagerDuty (alerting), Statuspage (external comms)",
+        "observability_gap": "Distributed tracing only covers 60% of services, missing inventory and shipping services",
+        "observability_fix": "Instrument remaining 40% services with OpenTelemetry SDK, prioritize by proximity to critical path",
+        "game_day_scenario_1": "Primary payment gateway (Stripe) becomes unavailable for 15 minutes during Black Friday traffic",
+        "game_day_scenario_1_validation": "Automated failover to backup gateway (Adyen), degraded checkout UX with payment method limits, clear status page communication",
+        "game_day_scenario_2": "Cart service has a silent data corruption bug affecting 5% of sessions",
+        "game_day_scenario_2_validation": "Canary detection of anomaly (5% increase in cart abandonment), automated rollback of last deployment, data integrity check and repair pipeline",
+        "chaos_experiment": "Inject 30-second latency into checkout-service calls to payment-gateway during simulated peak traffic",
+        "chaos_hypothesis": "Circuit breaker opens within 5 seconds, degraded UX (checkout takes 3s longer) but no failed transactions",
+        "chaos_blast_radius": "Limited to 5% of production traffic via Istio traffic mirroring",
+        "chaos_observability": "Datadog SLO burn rate alert triggers within 2 minutes of error budget consumption acceleration",
+        "runbook_area_1": "Payment gateway failover",
+        "runbook_1_validation": "Tested during quarterly game day, runbook updated with Stripe-API-version-specific failure codes",
+        "runbook_area_2": "Cart service data corruption repair",
+        "runbook_2_validation": "Tested via chaos experiment, automated repair pipeline documented",
+        "runbook_area_3": "Cache cluster (ElastiCache Redis) failover",
+        "runbook_3_validation": "Annual DR test, runbook needs updating for new cluster topology (sharded vs non-sharded)"
+      },
+      "expected": { "contains": ["SRE", "DORA", "game day", "chaos", "error budget", "runbook", "MTTR"] },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}
