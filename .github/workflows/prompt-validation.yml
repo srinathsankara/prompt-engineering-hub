@@ -5,14 +5,70 @@ on:
     paths:
       - "prompts/**/*.md"
       - "skills/**/*.md"
-      - "config/prompt-standards.json"
+      - "config/**"
+      - "scripts/**"
+      - "testing/**"
   push:
     branches: [main]
     paths:
       - "prompts/**/*.md"
       - "skills/**/*.md"
+      - "scripts/**"
+      - "testing/**"
 
 jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PSScriptAnalyzer
+        shell: pwsh
+        run: Install-Module -Name PSScriptAnalyzer -Force
+
+      - name: Run PSScriptAnalyzer
+        shell: pwsh
+        run: |
+          $results = Invoke-ScriptAnalyzer -Path scripts/ -Recurse
+          if ($results) {
+            $results | Format-Table -AutoSize
+            $severity = $results | Where-Object { $_.Severity -in @("Error", "Warning") }
+            if ($severity) { exit 1 }
+          }
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'push' ||
+      (github.event_name == 'pull_request' &&
+       contains(join(github.event.pull_request.changed_files, ','), 'scripts/') ||
+       contains(join(github.event.pull_request.changed_files, ','), 'testing/'))
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Pester
+        shell: pwsh
+        run: Install-Module -Name Pester -Force -SkipPublisherCheck
+
+      - name: Run Pester tests
+        shell: pwsh
+        run: |
+          Import-Module Pester
+          $config = New-PesterConfiguration
+          $config.Run.Path = "testing/frameworks/tests"
+          $config.Run.Exit = $true
+          $config.TestResult.Enabled = $true
+          $config.TestResult.OutputPath = "testing/reports/pester-results.xml"
+          $config.Output.Verbosity = "Detailed"
+          Invoke-Pester -Configuration $config
+
+      - name: Upload Pester results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pester-results
+          path: testing/reports/pester-results.xml
+
   validate:
     runs-on: ubuntu-latest
     steps:
@@ -36,17 +92,27 @@ jobs:
           $exitCode = 0
           foreach ($file in $changed) {
             $tier = "basic"
-            $content = Get-Content $file -Raw
+            $content = Get-Content -LiteralPath $file -Raw
             if ($content -match 'complexity_tier:\s*(\w+)') { $tier = $Matches[1] }
             Write-Host "Validating: $file (tier: $tier)"
-            & ./scripts/validate-prompts.ps1 -PromptPath $file -ComplexityTier $tier -OutputPath "./testing/reports/$(Split-Path $file -LeafBase)-report.json"
+            & ./scripts/validate-prompts.ps1 -PromptPath $file -ComplexityTier $tier
             if ($LASTEXITCODE -ne 0) { $exitCode = 1 }
           }
           exit $exitCode
+
+      - name: Validate all test suites
+        shell: pwsh
+        run: & ./testing/frameworks/test-suite-validator.ps1
+
+      - name: Tag library scan
+        shell: pwsh
+        run: & ./scripts/tag-library.ps1
 
       - name: Upload validation reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: validation-reports
-          path: testing/reports/*.json
+          path: |
+            testing/reports/*-report.json
+            testing/reports/suite-validation-report.json

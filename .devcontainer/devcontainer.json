@@ -1,0 +1,19 @@
+{
+  "name": "Prompt Engineering Hub",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/powershell:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "postCreateCommand": "pwsh -NoProfile -Command 'Write-Host \"Repo ready. Run pwsh scripts/validate-prompts.ps1 to validate prompts.\"'",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.PowerShell",
+        "yzhang.markdown-all-in-one",
+        "DavidAnson.vscode-markdownlint"
+      ]
+    }
+  },
+  "remoteUser": "vscode"
+}

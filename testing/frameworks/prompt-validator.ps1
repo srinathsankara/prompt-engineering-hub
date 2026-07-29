@@ -10,8 +10,18 @@ function Test-PromptAccuracy {
     $actual = $ActualOutput.ToLower().Trim()
     $expected = $ExpectedOutput.ToLower().Trim()
 
-    $actualTokens = $actual -split '\s+'
-    $expectedTokens = $expected -split '\s+'
+    if ([string]::IsNullOrWhiteSpace($actual) -and [string]::IsNullOrWhiteSpace($expected)) {
+        return @{
+            precision = 1.0
+            recall = 1.0
+            f1_score = 0
+            threshold = $Threshold
+            pass = $false
+        }
+    }
+
+    $actualTokens = $actual -split '\s+' | Where-Object { $_ -ne '' }
+    $expectedTokens = $expected -split '\s+' | Where-Object { $_ -ne '' }
 
     $common = $actualTokens | Where-Object { $_ -in $expectedTokens }
     $precision = if ($actualTokens.Count -gt 0) { [math]::Round($common.Count / $actualTokens.Count, 4) } else { 0 }
@@ -97,14 +107,14 @@ function Test-FormatCompliance {
         }
     }
 
-    if ($FormatRules.ContainsKey("max_sections") -and $FormatRules.max_sections -gt 0) {
+    if ($FormatRules -and $FormatRules.ContainsKey("max_sections") -and $FormatRules.max_sections -gt 0) {
         $sectionCount = ([regex]::Matches($Output, '^#{2,3}\s', 'Multiline')).Count
         if ($sectionCount -gt $FormatRules.max_sections) {
             $issues += "Exceeds maximum sections: $sectionCount > $($FormatRules.max_sections)"
         }
     }
 
-    if ($FormatRules.ContainsKey("required_disclaimer") -and $FormatRules.required_disclaimer) {
+    if ($FormatRules -and $FormatRules.ContainsKey("required_disclaimer") -and $FormatRules.required_disclaimer) {
         if ($Output -notmatch $FormatRules.required_disclaimer) {
             $issues += "Missing required disclaimer"
         }
@@ -143,6 +153,12 @@ function Invoke-PromptValidation {
     )
 
     $content = Get-Content $PromptPath -Raw
+
+    # Strip YAML frontmatter before running content checks
+    if ($content -match '^---\r?\n([\s\S]*?)\r?\n---') {
+        $content = $content.Substring($Matches[0].Length).TrimStart()
+    }
+
     $results = @{
         prompt = $PromptPath
         test_suite = $TestSuite.name
@@ -183,4 +199,4 @@ function Invoke-PromptValidation {
     return $results
 }
 
-Export-ModuleMember -Function Test-PromptAccuracy, Test-HasHallucination, Test-FormatCompliance, Measure-ResponseTime, Invoke-PromptValidation
+# Functions are automatically exported when this is loaded as a module via Import-Module
