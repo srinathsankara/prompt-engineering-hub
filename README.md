@@ -1,10 +1,60 @@
 ﻿# Prompt Engineering Hub
 
-I've spent 20+ years in solution architecture -- federal systems, cloud modernization, SRE, AI platforms, you name it. This repo is where I keep the prompts I wish I'd had on day one of every project.
+<div align="center">
 
-The short version: every time someone on your team fires up Claude to draft a transfer pricing study or debug an EKS cluster, they're starting from zero. The quality depends entirely on how well they know how to prompt. This repo fixes that -- battle-tested prompts that encode decades of domain expertise into templates you can actually reuse.
+**110 production-ready prompts from a 20-year solution architect — encode decades of enterprise domain expertise into reusable templates your whole team can use today.**
 
-If you're new: think of each file as a recipe. Pick the one that matches what you're doing, fill in the blanks (the `{{variable}}` placeholders), and get output that looks like a seasoned professional wrote it. Because someone who *is* a seasoned professional designed the prompt.
+![Prompts](https://img.shields.io/badge/prompts-110-blue)
+![Service Lines](https://img.shields.io/badge/service%20lines-13-purple)
+![Test Suites](https://img.shields.io/badge/test%20suites-36-green)
+![Validation](https://img.shields.io/badge/validation-CI%20automated-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
+
+</div>
+
+## Table of contents
+- [Why this exists](#why-this-exists)
+- [Quick start](#quick-start)
+- [What's in here](#whats-in-here)
+- [Who this is for](#who-this-is-for)
+- [Service lines covered](#service-lines-covered)
+- [Prompt anatomy](#prompt-anatomy)
+- [Infrastructure / SRE library](#infrastructure--sre-library)
+- [Validation & quality](#validation--quality)
+- [Contributing](#how-to-contribute)
+
+---
+
+## Why this exists
+
+Every time someone on your team fires up Claude to draft a transfer pricing study or debug an EKS cluster, they're starting from zero. The output quality depends entirely on how well they know how to prompt.
+
+This repo fixes that. It's a library of **battle-tested prompts that encode 20+ years of domain expertise** -- federal systems, cloud modernization, SRE, AI platforms, tax, audit, risk -- into templates you can actually reuse. Think of each file as a recipe: pick the one that matches what you're doing, fill in the `{{variable}}` blanks, and get output that looks like a seasoned professional wrote it. Because someone who *is* a seasoned professional designed the prompt.
+
+**Give it a star if you'd use it on your next engagement — it keeps this library growing.**
+
+---
+
+## Quick start
+
+```bash
+# Clone the repo
+git clone https://github.com/srinathsankara/prompt-engineering-hub.git
+cd prompt-engineering-hub
+
+# Browse the library
+ls prompts/tax/credits-incentives/          # tax credit study prompts
+ls prompts/infrastructure/kubernetes/       # K8s debugging prompts
+
+# Validate any prompt (requires PowerShell)
+pwsh scripts/validate-prompts.ps1 -PromptPath prompts/tax/corporate/tax_corporate-income_basic_v1.md -ComplexityTier basic
+```
+
+**30 seconds to your first prompt:**
+1. Open any `.md` file in `prompts/`
+2. Copy the `system_prompt`, `context`, and `user_prompt` sections
+3. Replace each `{{variable}}` with real data
+4. Paste into Claude (or any LLM) — done.
 
 ---
 
@@ -17,7 +67,7 @@ prompt-engineering-hub/
 ├── patterns/             ← Reusable prompt engineering patterns (few-shot, CoT, RAG)
 ├── testing/              ← Validation so prompts don't regress
 │   ├── frameworks/       ← PowerShell + Python test runners
-│   ├── test-cases/       ← 30 test suites covering the prompt library
+│   ├── test-cases/       ← 36 test suites covering the prompt library
 │   └── reports/          ← Validation outputs you can show auditors
 ├── knowledge-base/       ← Onboarding, architecture decisions, reference docs
 ├── training/             ← Enablement materials for the Ambassador program
@@ -173,3 +223,12 @@ The test runner (`testing/frameworks/prompt-validator.ps1`) runs all of these au
 - **19 infrastructure / SRE prompts** for cloud operations
 - **17 risk & cybersecurity prompts** (CFIUS & NSA compliance, DFARS/FAR/CMMC 2.0, NIST CSF/800-53/800-171, ISO 27001/42001/42002, AI governance, HIPAA, SOX)
 - **CI/CD** with GitHub Actions (validation + skill deployment + library sync)
+- **Open source** under MIT — use it, remix it, contribute back
+
+---
+
+<div align="center">
+
+If this library saved you an hour of prompt-writing, **star the repo** ⭐ and share it with a teammate.
+
+</div>
