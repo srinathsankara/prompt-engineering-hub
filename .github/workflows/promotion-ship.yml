@@ -1,0 +1,55 @@
+name: Promotion Ship
+
+on:
+  workflow_dispatch:
+    inputs:
+      files:
+        description: "Announcement file(s) to post (blank = all pending)"
+        required: false
+        default: ""
+  schedule:
+    - cron: "30 9 * * 1,3,5"
+
+permissions:
+  contents: read
+
+jobs:
+  ship:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r promotion/requirements.txt
+
+      - name: Preview what will be posted
+        run: python promotion/ship.py preview ${{ github.event.inputs.files }}
+
+      - name: Publish announcements
+        run: python promotion/ship.py publish ${{ github.event.inputs.files }}
+        env:
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
+          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+          TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
+
+      - name: Commit ship state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet promotion/.ship-state.json; then
+            echo "No state change"
+          else
+            git add promotion/.ship-state.json
+            git commit -m "chore(promotion): record shipped announcements"
+            git push
+          fi
