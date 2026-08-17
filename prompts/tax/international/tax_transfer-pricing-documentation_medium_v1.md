@@ -11,7 +11,7 @@ reviewer: tax-sme
 created_date: 2026-07-10
 last_modified: 2026-07-15
 tags: ["transfer-pricing", "international-tax", "irc-482", "oecd", "benchmarking", "arm's-length", "claude"]
-test_suites: []
+test_suites: ["testing/test-cases/tax/transfer-pricing-medium.json"]
 ---
 
 ## system_prompt

@@ -11,7 +11,7 @@ reviewer: Srinath Sankara
 created_date: 2026-07-23
 last_modified: 2026-07-23
 tags: ["sre", "site-reliability-engineering", "observability", "error-budgets", "slo", "sli", "slt", "monitoring", "claude"]
-test_suites: ["test-cases/architecture/sre-observability.json"]
+test_suites: ["testing/test-cases/architecture/sre-observability.json"]
 ---
 
 ## system_prompt

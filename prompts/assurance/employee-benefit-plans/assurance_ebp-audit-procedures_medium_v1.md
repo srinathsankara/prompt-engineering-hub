@@ -11,7 +11,7 @@ reviewer: assurance-sme
 created_date: 2026-07-10
 last_modified: 2026-07-15
 tags: ["ebp", "employee-benefit-plan", "401k", "pension", "erisa", "dol", "audit", "claude"]
-test_suites: []
+test_suites: ["testing/test-cases/assurance/ebp-audit-medium.json"]
 ---
 
 ## system_prompt

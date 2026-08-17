@@ -1,4 +1,4 @@
----
+﻿---
 title: Experience-Centric Collaboration -- M365, Teams, Zoom, Slack, Atlassian & Unified Digital Hub
 service_line: digital-workplace
 subcategory: collaboration
@@ -11,7 +11,7 @@ reviewer: Srinath Sankara
 created_date: 2026-07-23
 last_modified: 2026-07-23
 tags: ["collaboration", "microsoft-365", "teams", "zoom", "slack", "docusign", "atlassian", "digital-hub", "claude"]
-test_suites: ["test-cases/digital-workplace/collaboration-hub.json"]
+test_suites: ["testing/test-cases/digital-workplace/collaboration-hub.json"]
 ---
 
 ## system_prompt

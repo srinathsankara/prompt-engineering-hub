@@ -11,7 +11,7 @@ reviewer: transactions-sme
 created_date: 2026-07-10
 last_modified: 2026-07-15
 tags: ["valuation", "purchase-price-allocation", "asc-805", "irc-1060", "goodwill", "intangible-assets", "fair-value", "dlom", "dloc", "market-approach", "income-approach", "claude"]
-test_suites: []
+test_suites: ["testing/test-cases/transactions/valuation-advanced.json"]
 ---
 
 ## system_prompt

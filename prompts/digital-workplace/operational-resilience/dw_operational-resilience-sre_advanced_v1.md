@@ -1,4 +1,4 @@
----
+﻿---
 title: Operational Excellence & Resilience -- ServiceNow, DORA Metrics, SLO/SLI & Chaos Engineering
 service_line: digital-workplace
 subcategory: operational-resilience
@@ -11,7 +11,7 @@ reviewer: Srinath Sankara
 created_date: 2026-07-23
 last_modified: 2026-07-23
 tags: ["operational-excellence", "resilience", "servicenow", "jira-itsm", "dora", "slo", "sli", "chaos-engineering", "five-nines", "claude"]
-test_suites: ["test-cases/digital-workplace/operational-resilience.json"]
+test_suites: ["testing/test-cases/digital-workplace/operational-resilience.json"]
 ---
 
 ## system_prompt

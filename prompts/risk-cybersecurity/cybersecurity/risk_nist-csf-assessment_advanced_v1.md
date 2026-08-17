@@ -11,7 +11,7 @@ reviewer: risk-sme
 created_date: 2026-07-10
 last_modified: 2026-07-15
 tags: ["nist-csf", "cybersecurity", "risk-assessment", "maturity-model", "incident-response", "recovery", "detect", "protect", "govern", "respond", "claude"]
-test_suites: []
+test_suites: ["testing/test-cases/risk-cybersecurity/nist-csf-advanced.json"]
 ---
 
 ## system_prompt

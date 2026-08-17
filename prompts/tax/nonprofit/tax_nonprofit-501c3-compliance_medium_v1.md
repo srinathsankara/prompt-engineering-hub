@@ -11,7 +11,7 @@ reviewer: tax-sme
 created_date: 2026-07-22
 last_modified: 2026-07-23
 tags: ["nonprofit", "501c3", "exempt-organizations", "ubit", "unrelated-business-income", "form-990", "private-foundation", "claude"]
-test_suites: []
+test_suites: ["testing/test-cases/tax/nonprofit-compliance-medium.json"]
 ---
 
 ## system_prompt
