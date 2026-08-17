@@ -21,12 +21,12 @@ if (Test-Path -LiteralPath $configPath) {
         $tierLimits[$name] = $config.standards.complexity_tiers.$name.max_tokens
     }
 } else {
-    $tierLimits = @{ basic = 1024; medium = 2048; advanced = 4096 }
+    $tierLimits = @{ basic = 2048; medium = 6144; advanced = 8192 }
     $tierNames = @("basic", "medium", "advanced")
 }
 
 if (-not $OutputPath) {
-    $OutputPath = Join-Path "testing" "reports" "$(Split-Path $PromptPath -LeafBase)-report.json"
+    $OutputPath = Join-Path (Join-Path "testing" "reports") "$([System.IO.Path]::GetFileNameWithoutExtension($PromptPath))-report.json"
 }
 
 $report = @{
@@ -106,6 +106,36 @@ if ($filename -match "^[a-z]+_(?:[a-z][-a-z0-9]*[a-z0-9])(?:_(?:$tierPattern))?_
     Add-Check "naming_convention" "pass" "Filename follows naming convention"
 } else {
     Add-Check "naming_convention" "fail" "Filename does not match pattern: {service-line}_{use-case}[_{tier}]_v{version}.md"
+}
+
+# Check 6: Test suite coverage gate -- validated/production prompts must reference test suites
+$validationStatus = ""
+if ($content -match '(?m)^validation_status:\s*(\w+)') { $validationStatus = $Matches[1] }
+$testSuites = @()
+if ($content -match '(?m)^test_suites:\s*\[([^\]]*)\]') { $testSuites = $Matches[1] -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne "" } }
+
+if ($validationStatus -in @("validated", "production") -and $testSuites.Count -eq 0) {
+    Add-Check "test_suite_coverage" "fail" "Prompts marked $validationStatus must reference at least one test suite in 'test_suites:'"
+} else {
+    Add-Check "test_suite_coverage" "pass" "Test suite coverage requirement satisfied"
+}
+
+# Check 7: Test suite references must resolve to existing files on disk
+$repoRoot = Split-Path -Parent (Split-Path -Parent $PSCommandPath)
+$danglingSuites = @()
+foreach ($suite in $testSuites) {
+    $cleanSuite = $suite.Trim().Trim('"')
+    if (-not $cleanSuite) { continue }
+    $normalized = ($cleanSuite -replace '^test-cases/', 'testing/test-cases/').Replace('/', [System.IO.Path]::DirectorySeparatorChar)
+    $suitePath = Join-Path $repoRoot $normalized
+    if (-not (Test-Path -LiteralPath $suitePath)) {
+        $danglingSuites += $cleanSuite
+    }
+}
+if ($danglingSuites.Count -gt 0) {
+    Add-Check "test_suite_reference_integrity" "fail" "Test suite references do not exist on disk: $($danglingSuites -join ', ')"
+} else {
+    Add-Check "test_suite_reference_integrity" "pass" "All test_suites references resolve to existing files"
 }
 
 $report.overall = if ($report.failed -eq 0) { "pass" } else { "fail" }

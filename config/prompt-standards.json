@@ -6,7 +6,7 @@
     "prompt_structure": {
       "required_sections": ["system_prompt", "user_prompt", "output_format"],
       "optional_sections": ["context", "examples", "constraints", "fallback_instructions"],
-      "max_length_tokens": 4096,
+      "max_length_tokens": 8192,
       "format": "markdown"
     },
     "naming_conventions": {
@@ -22,19 +22,19 @@
     "complexity_tiers": {
       "basic": {
         "description": "Simple single-turn prompts with minimal context",
-        "max_tokens": 1024,
+        "max_tokens": 2048,
         "validation_required": ["accuracy", "format"],
         "approval": "self"
       },
       "medium": {
         "description": "Multi-turn prompts with domain context and examples",
-        "max_tokens": 2048,
+        "max_tokens": 6144,
         "validation_required": ["accuracy", "format", "edge_cases"],
         "approval": "peer"
       },
       "advanced": {
         "description": "Complex multi-step prompts with RAG, CoT, or agentic patterns",
-        "max_tokens": 4096,
+        "max_tokens": 8192,
         "validation_required": ["accuracy", "format", "edge_cases", "hallucination", "compliance"],
         "approval": "architect"
       }
