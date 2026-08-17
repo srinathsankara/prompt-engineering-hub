@@ -1,7 +1,7 @@
-{
+﻿{
   "name": "sox-compliance-internal-control-narrative-medium-suite",
   "version": "1.0.0",
-  "prompt_ref": "prompts/risk-cybersecurity/sox-compliance/risk-sox_internal-control-narrative_medium_v1.md",
+  "prompt_ref": "prompts/risk-cybersecurity/sox-compliance/risk_sox-internal-control-narrative_medium_v1.md",
   "service_line": "risk-cybersecurity",
   "complexity_tier": "medium",
   "threshold": { "accuracy": 0.85, "hallucination": 0.0 },

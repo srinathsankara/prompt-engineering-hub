@@ -11,7 +11,7 @@ reviewer: assurance-sme
 created_date: 2026-05-18
 last_modified: 2026-06-14
 tags: ["sox", "internal-controls", "sarbanes-oxley", "audit", "compliance", "coSO", "claude"]
-test_suites: ["testing/test-cases/risk-cybersecurity/sox-narrative.json"]
+test_suites: ["testing/test-cases/risk-cybersecurity/sox-compliance.json"]
 ---
 
 ## system_prompt

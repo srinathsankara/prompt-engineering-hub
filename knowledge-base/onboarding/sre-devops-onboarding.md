@@ -116,7 +116,7 @@ kubectl get networkpolicies -n <ns>
 
 ## Runbooks You Should Read First
 
-1. **Sev1 Incident Triage** -- `prompts/infrastructure/incident-response/infra_incident-triage_sev1-v2_v1.md`
+1. **Sev1 Incident Triage** -- `prompts/infrastructure/incident-response/infra_incident-triage_advanced_v1.md`
 2. **Kubernetes Debugging** -- `prompts/infrastructure/kubernetes/infra_k8s-debugging_medium_v1.md`
 3. **CI/CD Pipeline Debug** -- `prompts/infrastructure/ci-cd/infra_cicd-pipeline-debug_v1.md`
 4. **Root Cause Analysis** -- `prompts/infrastructure/incident-response/infra_root-cause-analysis_v1.md`

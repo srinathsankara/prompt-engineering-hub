@@ -1,5 +1,5 @@
----
-title: Prompt Demonstration — Infrastructure Incident Response
+﻿---
+title: Prompt Demonstration â€” Infrastructure Incident Response
 type: demonstration
 service_line: infrastructure
 complexity_tier: basic
@@ -12,7 +12,7 @@ A junior SRE gets paged at 2 AM for a production incident. They've never handled
 
 ## Step 1: Open the Prompt
 
-`prompts/infrastructure/incident-response/infra_incident-triage_sev1-v2_v1.md`
+`prompts/infrastructure/incident-response/infra_incident-triage_advanced_v1.md`
 
 ## Step 2: Fill in the Variables
 

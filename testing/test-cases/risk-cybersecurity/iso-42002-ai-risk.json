@@ -1,7 +1,7 @@
-{
+﻿{
   "name": "iso-42002-ai-risk-assessment-suite",
   "version": "1.0.0",
-  "prompt_ref": "prompts/risk-cybersecurity/iso-42002/risk-iso42002-ai-risk-assessment_advanced_v1.md",
+  "prompt_ref": "prompts/risk-cybersecurity/iso-42002/risk_iso42002-ai-risk-assessment_advanced_v1.md",
   "service_line": "risk-cybersecurity",
   "complexity_tier": "advanced",
   "threshold": { "accuracy": 0.8, "hallucination": 0.0 },
