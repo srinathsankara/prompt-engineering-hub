@@ -1,0 +1,86 @@
+{
+  "name": "post-mortem-basic-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/infrastructure/incident-response/infra_post-mortem-blameless_v1.md",
+  "service_line": "infrastructure",
+  "complexity_tier": "basic",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "Every incident is a system failure, not a people failure",
+    "A good post-mortem is precise, thorough, actionable, and shared",
+    "Root cause is why it happened; contributing factors are why it was allowed to happen",
+    "Every finding leads to a concrete, assigned action item",
+    "The title format is: Post-Mortem: severity - service - brief description - date"
+  ],
+  "ground_truth": [
+    "blameless",
+    "root cause",
+    "contributing factors",
+    "action item",
+    "timeline",
+    "impact",
+    "lessons learned"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 6,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "api-outage-postmortem",
+      "input": {
+        "incident_id": "INC-2026-042",
+        "incident_date": "2026-05-14",
+        "duration": "47 minutes",
+        "severity": "Sev-2",
+        "service_name": "payments-api",
+        "impact_description": "Payment processing failures for 12,000 users",
+        "responders": "on-call rotation, payments team",
+        "timeline": "09:00 deploy; 09:07 alert; 09:12 triage; 09:31 rollback; 09:47 restored",
+        "normal_error_rate": "0.1",
+        "incident_error_rate": "18",
+        "normal_latency": "45",
+        "incident_latency": "3200",
+        "affected_users": "12000",
+        "revenue_impact": "$42,000",
+        "downtime_minutes": "47"
+      },
+      "expected": {
+        "contains": ["blameless", "root cause", "contributing factors", "action item", "timeline", "impact"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "database-degradation-postmortem",
+      "input": {
+        "incident_id": "INC-2026-089",
+        "incident_date": "2026-06-02",
+        "duration": "22 minutes",
+        "severity": "Sev-3",
+        "service_name": "user-service",
+        "impact_description": "Increased latency, no user-visible outage",
+        "responders": "DBA team",
+        "timeline": "14:00 query pattern change; 14:15 alert; 14:22 index rebuild; 14:37 normal",
+        "normal_error_rate": "0.05",
+        "incident_error_rate": "0.4",
+        "normal_latency": "60",
+        "incident_latency": "480",
+        "affected_users": "0",
+        "revenue_impact": "0",
+        "downtime_minutes": "0"
+      },
+      "expected": {
+        "contains": ["blameless", "root cause", "action item", "lessons learned"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

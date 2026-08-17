@@ -1,0 +1,86 @@
+﻿{
+  "name": "cloud-cost-analysis-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/infrastructure/cost-optimization/infra_cloud-cost-analysis_v1.md",
+  "service_line": "infrastructure",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "The cheapest architecture that still meets the SLO is the right one",
+    "If average CPU is below 20% and peak below 40%, downsize the instance",
+    "If average CPU is below 10%, consider stopping or scheduling the instance",
+    "Variable workloads may qualify for Spot instances",
+    "Rightsizing and reserved capacity are core cost optimization levers",
+    "FinOps is a balance between performance, reliability, and spend"
+  ],
+  "ground_truth": [
+    "rightsizing",
+    "reserved instances",
+    "savings plans",
+    "Spot",
+    "utilization",
+    "FinOps",
+    "SLO",
+    "cloudwatch"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 6,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "aws-ec2-rightsizing",
+      "input": {
+        "cloud_provider": "AWS",
+        "account_id": "123456789012",
+        "environment": "Prod",
+        "monthly_spend": "$45,000",
+        "spend_trend": "increasing 15%",
+        "avg_cpu": "12",
+        "peak_cpu": "35",
+        "idle_periods": "nights and weekends",
+        "avg_memory": "30",
+        "peak_memory": "55",
+        "avg_network": "20",
+        "peak_network": "60",
+        "instance_id": "i-0abc123def456",
+        "recommended_instance": "t3.medium"
+      },
+      "expected": {
+        "contains": ["rightsizing", "utilization", "downsize", "Spot", "cloudwatch", "FinOps"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "azure-vm-rightsizing",
+      "input": {
+        "cloud_provider": "Azure",
+        "account_id": "sub-9f8e7d6c",
+        "environment": "Dev",
+        "monthly_spend": "$12,000",
+        "spend_trend": "stable",
+        "avg_cpu": "8",
+        "peak_cpu": "20",
+        "idle_periods": "after hours",
+        "avg_memory": "25",
+        "peak_memory": "45",
+        "avg_network": "10",
+        "peak_network": "30",
+        "vm_id": "vm-prod-01",
+        "recommended_instance": "Standard_B2s"
+      },
+      "expected": {
+        "contains": ["rightsizing", "utilization", "stop", "Azure"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

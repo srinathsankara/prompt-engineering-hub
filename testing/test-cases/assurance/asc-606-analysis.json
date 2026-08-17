@@ -1,0 +1,77 @@
+{
+  "name": "asc-606-analysis-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/assurance/technical-accounting/assurance_asc-606-revenue-recognition_medium_v1.md",
+  "service_line": "assurance",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "ASC 606 uses a five-step model for revenue recognition",
+    "Step 1 requires satisfying the contract criteria in ASC 606-10-25-1",
+    "Contract combination analysis is under ASC 606-10-25-9",
+    "Performance obligations must be distinct to be separated",
+    "Software license plus installation is distinct if installation is available from other vendors",
+    "Design and production of custom molds is not distinct because they are highly interdependent"
+  ],
+  "ground_truth": [
+    "five-step model",
+    "performance obligation",
+    "transaction price",
+    "variable consideration",
+    "ASC 606",
+    "distinct",
+    "contract modification"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 7,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "software-multi-element",
+      "input": {
+        "company_name": "Fusion Analytics",
+        "industry": "software",
+        "revenue_model": "hybrid",
+        "reporting_status": "private",
+        "contract_type": "license plus maintenance and support",
+        "contract_term": "3 years",
+        "contract_value": "$600,000",
+        "products_services": "Yes",
+        "variable_consideration": "support credits",
+        "licenses_ip": "functional IP"
+      },
+      "expected": {
+        "contains": ["five-step model", "performance obligation", "transaction price", "distinct", "ASC 606"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "construction-arrangement",
+      "input": {
+        "company_name": "BuildRight Construction",
+        "industry": "construction",
+        "revenue_model": "contract-based",
+        "reporting_status": "private",
+        "contract_type": "custom equipment with design and production",
+        "contract_term": "18 months",
+        "contract_value": "$2,400,000",
+        "products_services": "single element",
+        "variable_consideration": "performance bonus",
+        "licenses_ip": "n/a"
+      },
+      "expected": {
+        "contains": ["five-step model", "performance obligation", "transaction price", "variable consideration"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

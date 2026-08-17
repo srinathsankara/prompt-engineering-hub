@@ -1,0 +1,95 @@
+{
+  "name": "sales-use-tax-nexus-basic-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/tax/state-local/tax_sales-use-tax-nexus_basic_v1.md",
+  "service_line": "tax",
+  "complexity_tier": "basic",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "Wayfair changed nexus rules in 2018",
+    "Economic nexus applies to most states at $100k or 200 transactions",
+    "Nexus can be physical, economic, or click-through/affiliate",
+    "Lookback period for historical exposure generally runs 3-4 years",
+    "Some states waive penalty and interest for voluntary disclosure",
+    "South Dakota v. Wayfair established the economic nexus standard"
+  ],
+  "ground_truth": [
+    "physical presence",
+    "economic nexus",
+    "Wayfair",
+    "click-through",
+    "marketplace",
+    "voluntary disclosure",
+    "lookback"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 6,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "ecommerce-physical-presence",
+      "input": {
+        "entity_name": "Brightworks Supply Co.",
+        "entity_type": "LLC",
+        "business_description": "online and wholesale distributor of office supplies",
+        "home_state": "Texas",
+        "annual_revenue": "$8,000,000",
+        "remote_sales_pct": "45",
+        "product_service_type": "tangible goods",
+        "physical_presence": "warehouse in California",
+        "sales_channels": "website, marketplace, direct sales",
+        "economic_activity": "revenue in California $1.2M, New York $400K",
+        "affiliate_relationships": "yes",
+        "state_1": "California",
+        "state_2": "New York",
+        "state_3": "Washington",
+        "state_variations": "Washington economic nexus $100k",
+        "exposure_period": "3 years",
+        "estimated_liability": "$180,000",
+        "penalty_interest": "waived under voluntary disclosure",
+        "marketplace_breakdown": "30% marketplace, 70% direct"
+      },
+      "expected": {
+        "contains": ["physical presence", "economic nexus", "Wayfair", "marketplace", "voluntary disclosure"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "saas-no-physical-presence",
+      "input": {
+        "entity_name": "CloudLedger Systems",
+        "entity_type": "C-Corp",
+        "business_description": "SaaS accounting platform",
+        "home_state": "Colorado",
+        "annual_revenue": "$5,500,000",
+        "remote_sales_pct": "60",
+        "product_service_type": "SaaS",
+        "physical_presence": "none",
+        "sales_channels": "website, direct sales",
+        "economic_activity": "revenue in Washington $300K",
+        "affiliate_relationships": "no",
+        "state_1": "Washington",
+        "state_2": "Oregon",
+        "state_3": "Arizona",
+        "state_variations": "Oregon economic nexus $100k",
+        "exposure_period": "4 years",
+        "estimated_liability": "$75,000",
+        "penalty_interest": "standard rates apply",
+        "marketplace_breakdown": "no marketplace sales"
+      },
+      "expected": {
+        "contains": ["economic nexus", "Wayfair", "nexus", "voluntary disclosure"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

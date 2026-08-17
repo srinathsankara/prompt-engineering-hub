@@ -1,0 +1,77 @@
+{
+  "name": "enterprise-risk-assessment-advanced-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/advisory/risk/advisory_risk-assessment_advanced_v1.md",
+  "service_line": "advisory",
+  "complexity_tier": "advanced",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "Risk frameworks (COSO, ISO 31000) are variations on the same question: what can hurt us and how sure are we",
+    "Risk assessment must be calibrated to the organization's actual risk appetite, not its compliance posture",
+    "Residual risk is determined after assessing control effectiveness",
+    "Inherent risk is rated as Likelihood x Impact on a 5x5 matrix",
+    "A risk register nobody opens is not a risk management program"
+  ],
+  "ground_truth": [
+    "COSO",
+    "ISO 31000",
+    "inherent risk",
+    "residual risk",
+    "KRI",
+    "risk appetite",
+    "mitigation",
+    "monitoring"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 7,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "manufacturer-risk-assessment",
+      "input": {
+        "entity_name": "Meridian Manufacturing",
+        "industry": "industrial manufacturing",
+        "revenue": "$120,000,000",
+        "jurisdiction": "United States",
+        "risk_appetite_statement": "moderate -- accepts measured operational risk, avoids strategic bets on unproven markets",
+        "existing_framework": "none",
+        "recent_changes": "acquired a distribution subsidiary",
+        "scenario_1": "supply chain disruption",
+        "scenario_2": "key customer concentration",
+        "scenario_3": "regulatory change"
+      },
+      "expected": {
+        "contains": ["strategic risks", "operational risks", "financial risks", "compliance risks", "reputational risks", "inherent risk", "residual risk", "KRI", "heat map"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "financial-services-risk-assessment",
+      "input": {
+        "entity_name": "Northbridge Capital",
+        "industry": "financial services",
+        "revenue": "$45,000,000",
+        "jurisdiction": "United States",
+        "risk_appetite_statement": "conservative -- prioritizes capital preservation and regulatory compliance",
+        "existing_framework": "COSO",
+        "recent_changes": "new regulatory requirements",
+        "scenario_1": "interest rate shock",
+        "scenario_2": "cyber incident",
+        "scenario_3": "liquidity stress"
+      },
+      "expected": {
+        "contains": ["COSO", "inherent risk", "residual risk", "risk appetite", "mitigation", "KRI"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

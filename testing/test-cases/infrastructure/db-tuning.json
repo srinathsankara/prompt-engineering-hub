@@ -1,0 +1,92 @@
+{
+  "name": "db-performance-tuning-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/infrastructure/database/infra_db-performance-tuning_v1.md",
+  "service_line": "infrastructure",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "Most common database performance problems are bad queries, missing indexes, and connection management",
+    "High CPU with few active queries suggests a bad query",
+    "High CPU with many active queries suggests a connection or concurrency problem",
+    "PostgreSQL active query inspection uses pg_stat_activity",
+    "SQL Server request inspection uses sys.dm_exec_requests",
+    "Missing indexes are a leading cause of slow queries"
+  ],
+  "ground_truth": [
+    "bottleneck",
+    "index",
+    "query",
+    "connection",
+    "pg_stat_activity",
+    "sys.dm_exec_requests",
+    "latency",
+    "CPU"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 6,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "postgres-slow-queries",
+      "input": {
+        "db_type": "PostgreSQL",
+        "engine_version": "14.5",
+        "instance_class": "db.r6g.xlarge",
+        "storage_type": "gp3",
+        "storage_size": "500",
+        "storage_iops": "3000",
+        "environment": "Prod",
+        "symptom": "slow queries",
+        "avg_latency": "1200",
+        "baseline_latency": "150",
+        "active_connections": "80",
+        "max_connections": "500",
+        "cpu_usage": "85",
+        "memory_usage": "60",
+        "iops_usage": "2500",
+        "iops_provisioned": "3000",
+        "slow_query_log": "SELECT * FROM orders o JOIN customers c ON o.customer_id = c.id WHERE o.created_at > NOW() - interval '30 days'"
+      },
+      "expected": {
+        "contains": ["bottleneck", "index", "pg_stat_activity", "explain", "CPU"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "sql-server-timeouts",
+      "input": {
+        "db_type": "SQL Server",
+        "engine_version": "2022",
+        "instance_class": "Standard_D8s_v3",
+        "storage_type": "Premium SSD",
+        "storage_size": "1000",
+        "storage_iops": "4000",
+        "environment": "Prod",
+        "symptom": "timeout",
+        "avg_latency": "3000",
+        "baseline_latency": "200",
+        "active_connections": "450",
+        "max_connections": "1000",
+        "cpu_usage": "70",
+        "memory_usage": "90",
+        "iops_usage": "3800",
+        "iops_provisioned": "4000",
+        "slow_query_log": "SELECT * FROM dbo.LedgerEntry WHERE TransactionDate >= @start AND TransactionDate <= @end"
+      },
+      "expected": {
+        "contains": ["bottleneck", "index", "sys.dm_exec_requests", "connection"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

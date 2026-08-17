@@ -1,0 +1,74 @@
+{
+  "name": "asc-740-provision-advanced-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/tax/tax-provision/tax_asc-740-provision_advanced_v1.md",
+  "service_line": "tax",
+  "complexity_tier": "advanced",
+  "threshold": {
+    "accuracy": 0.9,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "Current tax expense is taxable income times applicable tax rate",
+    "Deferred tax expense is temporary differences times enacted future tax rates",
+    "Valuation allowances use the more-likely-than-not standard under ASC 740-10-30-5",
+    "Uncertain tax positions use a two-step process under ASC 740-10-25",
+    "Deferred balances are where mistakes compound",
+    "Financial statement disclosures are required annually and interim"
+  ],
+  "ground_truth": [
+    "ASC 740",
+    "current tax expense",
+    "deferred tax",
+    "valuation allowance",
+    "more-likely-than-not",
+    "uncertain tax position",
+    "effective tax rate",
+    "provision"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 6,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "sec-registrant-provision",
+      "input": {
+        "company_name": "Aurora Aerospace",
+        "entity_type": "C-Corp",
+        "sec_filer": "Yes",
+        "reporting_standard": "ASC 740",
+        "fiscal_year_end": "December 31",
+        "tax_jurisdictions": "federal, states, international",
+        "book_income": "$45,000,000",
+        "permanent_differences": "$2,000,000"
+      },
+      "expected": {
+        "contains": ["ASC 740", "current tax expense", "deferred tax", "valuation allowance", "more-likely-than-not", "effective tax rate"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "private-company-uncertain-position",
+      "input": {
+        "company_name": "Bayshore Manufacturing",
+        "entity_type": "S-Corp",
+        "sec_filer": "No",
+        "reporting_standard": "ASC 740",
+        "fiscal_year_end": "June 30",
+        "tax_jurisdictions": "federal, states",
+        "book_income": "$12,000,000",
+        "permanent_differences": "$400,000"
+      },
+      "expected": {
+        "contains": ["ASC 740", "deferred tax", "uncertain tax position", "valuation allowance"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

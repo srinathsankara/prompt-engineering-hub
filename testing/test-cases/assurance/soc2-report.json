@@ -1,0 +1,74 @@
+{
+  "name": "soc2-report-drafting-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/assurance/soc-reporting/assurance_soc2-report-drafting_medium_v1.md",
+  "service_line": "assurance",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "SOC 2 is about what you actually do, not what you say you do",
+    "Trust Services Criteria include Security, Availability, Processing Integrity, Confidentiality, Privacy",
+    "Type I reports evaluate design only; Type II reports evaluate design and operating effectiveness",
+    "CUECs and CSOCs must be addressed when relevant",
+    "Encryption standards are AES-256 at rest and TLS 1.2+ in transit"
+  ],
+  "ground_truth": [
+    "Trust Services Criteria",
+    "Security",
+    "Availability",
+    "Confidentiality",
+    "Type I",
+    "Type II",
+    "CUEC",
+    "CSOC",
+    "system description"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 8,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "saas-type2",
+      "input": {
+        "org_name": "SaaSGuard",
+        "services_description": "identity and access management platform",
+        "org_type": "SaaS",
+        "soc_history": "repeat",
+        "reporting_period": "July 1, 2025 - June 30, 2026",
+        "system_boundary": "production IAM platform",
+        "tsc_in_scope": "Security, Availability, Confidentiality",
+        "report_type": "Type II"
+      },
+      "expected": {
+        "contains": ["system description", "Trust Services Criteria", "Security", "Type II", "control"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "data-center-type1",
+      "input": {
+        "org_name": "ColoNorth Data Centers",
+        "services_description": "co-location and managed hosting",
+        "org_type": "data center",
+        "soc_history": "first-time",
+        "reporting_period": "as of December 31, 2026",
+        "system_boundary": "co-location facilities and managed hosting services",
+        "tsc_in_scope": "Security, Availability",
+        "report_type": "Type I"
+      },
+      "expected": {
+        "contains": ["system description", "Trust Services Criteria", "Security", "Type I", "control design"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

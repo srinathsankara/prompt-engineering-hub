@@ -1,0 +1,92 @@
+{
+  "name": "rd-tax-credit-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/tax/credits-incentives/tax_rd-tax-credit-study_medium_v1.md",
+  "service_line": "tax",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "Documentation needs to be contemporaneous",
+    "The four-part test under IRC 41(d) requires permitted purpose, technological in nature, elimination of uncertainty, and process of experimentation",
+    "Non-qualified activities include routine data collection and market research",
+    "Contract research is counted at 65% of qualified contract payments",
+    "The regular method credit is 20% of current year QREs over base amount",
+    "Routine software maintenance and duplicating existing products are not qualified"
+  ],
+  "ground_truth": [
+    "IRC 41",
+    "four-part test",
+    "QRE",
+    "wages",
+    "supplies",
+    "contract research",
+    "alternative simplified",
+    "section 174"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 6,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "software-company-credit-study",
+      "input": {
+        "company_name": "Nimbus Data",
+        "industry": "software",
+        "entity_type": "S-Corp",
+        "fiscal_year_end": "December 31",
+        "prior_credit_history": "first-time",
+        "tax_situation": "no AMT",
+        "business_activities": "developing a distributed database engine",
+        "development_processes": "agile, quarterly experiments",
+        "engineering_headcount": "25",
+        "rd_pct_revenue": "35",
+        "activity_1": "building a new query planner",
+        "activity_2": "data replication algorithm",
+        "activity_3": "routine UI maintenance",
+        "wage_amount": "$1,200,000",
+        "supplies_amount": "$80,000",
+        "contract_amount": "$300,000",
+        "total_qres": "$1,475,000"
+      },
+      "expected": {
+        "contains": ["IRC 41", "four-part test", "QRE", "wages", "supplies", "contract research"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "manufacturing-credit-study",
+      "input": {
+        "company_name": "Precision Forge Works",
+        "industry": "manufacturing",
+        "entity_type": "C-Corp",
+        "fiscal_year_end": "June 30",
+        "prior_credit_history": "previously claimed",
+        "tax_situation": "NOL position",
+        "business_activities": "developing a new alloy casting process",
+        "development_processes": "iterative prototypes",
+        "engineering_headcount": "12",
+        "rd_pct_revenue": "8",
+        "activity_1": "novel heat treatment process",
+        "activity_2": "automated inspection system",
+        "activity_3": "quality control testing",
+        "wage_amount": "$600,000",
+        "supplies_amount": "$150,000",
+        "contract_amount": "$200,000",
+        "total_qres": "$880,000"
+      },
+      "expected": {
+        "contains": ["IRC 41", "four-part test", "QRE", "alternative simplified"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

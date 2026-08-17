@@ -1,0 +1,73 @@
+{
+  "name": "audit-risk-assessment-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/assurance/audit/assurance_audit-procedures_medium_v1.md",
+  "service_line": "assurance",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "Risk assessment is where audit quality lives or dies",
+    "Procedures must reference relevant AU-C sections",
+    "Fraud risk is addressed under AU-C 240",
+    "Substantive procedures are linked to AU-C 330",
+    "Entity-level controls assessment covers the control environment"
+  ],
+  "ground_truth": [
+    "AU-C 240",
+    "AU-C 330",
+    "fraud risk",
+    "entity-level controls",
+    "IT general controls",
+    "substantive procedures",
+    "materiality",
+    "sample size"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 6,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "manufacturing-audit-plan",
+      "input": {
+        "engagement_type": "annual financial statement audit",
+        "fiscal_year_end": "December 31, 2026",
+        "entity_name": "Acme Fabrication Inc.",
+        "industry": "manufacturing",
+        "revenue_range": "$50M - $100M",
+        "prior_materiality": "$1.5M",
+        "identified_risks": "revenue recognition, inventory valuation, fraud",
+        "significant_accounts": "revenue, inventory, fixed assets"
+      },
+      "expected": {
+        "contains": ["AU-C 240", "AU-C 330", "fraud risk", "entity-level controls", "IT general controls", "substantive procedures"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "technology-services-audit-plan",
+      "input": {
+        "engagement_type": "annual financial statement audit",
+        "fiscal_year_end": "June 30, 2026",
+        "entity_name": "CloudCore Technologies",
+        "industry": "software",
+        "revenue_range": "$10M - $50M",
+        "prior_materiality": "$400K",
+        "identified_risks": "revenue recognition, equity transactions",
+        "significant_accounts": "deferred revenue, stock compensation"
+      },
+      "expected": {
+        "contains": ["AU-C 240", "AU-C 330", "fraud risk", "materiality"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

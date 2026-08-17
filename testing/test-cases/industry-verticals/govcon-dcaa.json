@@ -1,0 +1,86 @@
+{
+  "name": "govcon-dcaa-compliance-advanced-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/industry-verticals/government-contracting/industry_govcon-dcaa-compliance_advanced_v1.md",
+  "service_line": "industry-verticals",
+  "complexity_tier": "advanced",
+  "threshold": {
+    "accuracy": 0.9,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "DCAA compliance is governed by DFARS 252.242-7006 which defines 18 accounting system criteria",
+    "The accounting system must segregate direct and indirect costs",
+    "Incurred cost submissions use Schedules A through G",
+    "Cost Accounting Standards (CAS) apply to CAS-covered contractors",
+    "CMMC levels apply to contractors handling CUI",
+    "CASB Disclosure Statements are DS-1 and DS-2"
+  ],
+  "ground_truth": [
+    "DCAA",
+    "FAR",
+    "CAS",
+    "DFARS",
+    "CMMC",
+    "incurred cost submission",
+    "cost-reimbursement",
+    "forward pricing"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 6,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "mid-tier-cost-type",
+      "input": {
+        "contractor_name": "Sovereign Defense Systems",
+        "business_size": "mid-tier",
+        "years_govcon": "15",
+        "primary_agencies": "DoD",
+        "contract_types": "cost-reimbursement, IDIQ",
+        "cas_coverage": "CAS-covered",
+        "cmmc_level": "Level 2",
+        "accounting_system": "Deltek",
+        "dcaa_status": "audit in progress",
+        "total_revenue": "$85,000,000",
+        "govcon_revenue": "$60,000,000",
+        "cost_reimbursable_revenue": "$40,000,000",
+        "incurred_cost_status": "submitted",
+        "fpra_status": "in negotiation"
+      },
+      "expected": {
+        "contains": ["DFARS 252.242-7006", "CAS", "incurred cost submission", "forward pricing", "DCAA"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "small-business-cmmc",
+      "input": {
+        "contractor_name": "Atlas Edgeworks",
+        "business_size": "small business",
+        "years_govcon": "4",
+        "primary_agencies": "GSA",
+        "contract_types": "FFP",
+        "cas_coverage": "none",
+        "cmmc_level": "Level 1",
+        "accounting_system": "Unanet",
+        "dcaa_status": "no audits",
+        "total_revenue": "$12,000,000",
+        "govcon_revenue": "$9,000,000",
+        "cost_reimbursable_revenue": "$0",
+        "incurred_cost_status": "n/a",
+        "fpra_status": "no"
+      },
+      "expected": {
+        "contains": ["DFARS 252.242-7006", "CMMC", "accounting system", "direct and indirect costs"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

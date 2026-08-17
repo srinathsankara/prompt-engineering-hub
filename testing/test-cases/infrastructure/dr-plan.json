@@ -1,0 +1,98 @@
+{
+  "name": "dr-plan-review-advanced-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/infrastructure/disaster-recovery/infra_dr-plan-review_v1.md",
+  "service_line": "infrastructure",
+  "complexity_tier": "advanced",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "A DR plan that has never been tested is worse than no plan at all",
+    "Backup & restore targets hours RTO and 24h RPO at low cost",
+    "Pilot light targets ~30min RTO and ~10min RPO at medium cost",
+    "Warm standby targets ~5min RTO and ~5min RPO at high cost",
+    "Active-active targets under 1min RTO and real-time RPO at very high cost",
+    "Recovery priority should be based on business impact, not every app needing five-nines",
+    "NIST SP 800-34 and ISO 22301 are the governing standards"
+  ],
+  "ground_truth": [
+    "RTO",
+    "RPO",
+    "pilot light",
+    "warm standby",
+    "active-active",
+    "backup",
+    "failover",
+    "tabletop",
+    "NIST SP 800-34"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 6,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "tier1-microservices",
+      "input": {
+        "application_name": "Checkout API",
+        "service_tier": "Tier 1",
+        "cloud_provider": "AWS",
+        "primary_region": "us-east-1",
+        "dr_region": "us-west-2",
+        "architecture_pattern": "microservices",
+        "dependencies": "PostgreSQL primary, Redis cache, third-party payment API",
+        "rto": "30",
+        "rpo": "10",
+        "last_dr_test_date": "never",
+        "dr_test_frequency": "quarterly target",
+        "previous_test_results": "n/a",
+        "compute_detail": "EKS with 12 services",
+        "database_detail": "RDS Multi-AZ with cross-region read replica",
+        "storage_detail": "S3 with versioning",
+        "networking_detail": "VPC peering and Transit Gateway",
+        "dns_detail": "Route 53 with failover routing",
+        "auth_detail": "Cognito with cross-region replication",
+        "cicd_detail": "CodePipeline cross-region"
+      },
+      "expected": {
+        "contains": ["RTO", "RPO", "pilot light", "warm standby", "failover", "tabletop"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "tier3-backup-restore",
+      "input": {
+        "application_name": "Reporting Portal",
+        "service_tier": "Tier 3",
+        "cloud_provider": "Azure",
+        "primary_region": "eastus",
+        "dr_region": "westus",
+        "architecture_pattern": "monolith",
+        "dependencies": "Azure SQL, blob storage",
+        "rto": "240",
+        "rpo": "1440",
+        "last_dr_test_date": "2025-11-20",
+        "dr_test_frequency": "annual",
+        "previous_test_results": "restore completed in 3 hours",
+        "compute_detail": "App Service Plan",
+        "database_detail": "Azure SQL geo-restore",
+        "storage_detail": "Azure Blob geo-redundant",
+        "networking_detail": "VNet and NSG",
+        "dns_detail": "Azure DNS",
+        "auth_detail": "Entra ID",
+        "cicd_detail": "Azure DevOps"
+      },
+      "expected": {
+        "contains": ["RTO", "RPO", "backup", "restore", "tabletop"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

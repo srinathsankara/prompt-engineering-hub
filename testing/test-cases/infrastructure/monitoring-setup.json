@@ -1,0 +1,107 @@
+{
+  "name": "monitoring-setup-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/infrastructure/monitoring/infra_monitoring-setup_medium_v1.md",
+  "service_line": "infrastructure",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "USE method covers Utilization, Saturation, Errors for infrastructure",
+    "RED method covers Rate, Errors, Duration for services",
+    "Good alerting is actionable, timely, and rarely noisy",
+    "If an alert doesn't tell you what to do, don't fire it",
+    "The four golden signals are rate, errors, duration, and saturation",
+    "Error rate alerts typically target 5xx responses"
+  ],
+  "ground_truth": [
+    "RED",
+    "USE",
+    "golden signals",
+    "rate",
+    "errors",
+    "duration",
+    "saturation",
+    "SLO",
+    "alert"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 6,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "web-api-monitoring",
+      "input": {
+        "service_name": "checkout-service",
+        "app_type": "web API",
+        "runtime": "Go 1.22",
+        "deployment_type": "Kubernetes",
+        "cloud_provider": "AWS",
+        "criticality": "Tier 0",
+        "current_tool": "Grafana+Prometheus",
+        "current_coverage": "basic",
+        "availability_slo": "99.95",
+        "latency_slo": "120",
+        "error_budget": "0.05",
+        "current_performance": "99.97% availability",
+        "rate_metric": "http_requests_total",
+        "rate_target": "500",
+        "rate_alert_condition": "drop below 100 req/s for 10m",
+        "error_metric": "http_requests_total{status=~\"5..\"}",
+        "error_target": "0.5%",
+        "error_alert_condition": "above 1% for 5m",
+        "duration_metric": "http_request_duration_seconds",
+        "duration_target": "120",
+        "duration_alert_condition": "p99 above 120ms for 15m",
+        "saturation_metric": "container_cpu_usage",
+        "saturation_target": "80%",
+        "saturation_alert_condition": "above 85% for 10m"
+      },
+      "expected": {
+        "contains": ["RED", "rate", "errors", "duration", "saturation", "SLO", "alert", "dashboard"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "batch-worker-monitoring",
+      "input": {
+        "service_name": "reports-worker",
+        "app_type": "worker",
+        "runtime": "Python 3.12",
+        "deployment_type": "Azure Functions",
+        "cloud_provider": "Azure",
+        "criticality": "Tier 2",
+        "current_tool": "Azure Monitor",
+        "current_coverage": "none",
+        "availability_slo": "99",
+        "latency_slo": "60000",
+        "error_budget": "1",
+        "current_performance": "no monitoring",
+        "rate_metric": "functionexecutions_count",
+        "rate_target": "10",
+        "rate_alert_condition": "no executions for 1h",
+        "error_metric": "functionerrors_count",
+        "error_target": "1%",
+        "error_alert_condition": "above 5% for 10m",
+        "duration_metric": "function_duration_count",
+        "duration_target": "60000",
+        "duration_alert_condition": "p95 above 60s for 10m",
+        "saturation_metric": "concurrent_executions",
+        "saturation_target": "80%",
+        "saturation_alert_condition": "above 85% for 10m"
+      },
+      "expected": {
+        "contains": ["RED", "rate", "errors", "duration", "saturation", "SLO", "alert"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

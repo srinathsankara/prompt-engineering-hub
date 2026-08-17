@@ -1,0 +1,84 @@
+{
+  "name": "nfp-grant-compliance-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/industry-verticals/not-for-profit/industry_nfp-grant-compliance_medium_v1.md",
+  "service_line": "industry-verticals",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "Uniform Guidance (2 CFR 200) is the governing framework for federal grants",
+    "Single Audit Act applies when federal awards exceed $750,000",
+    "De minimis indirect cost rate is 10% of modified total direct costs under 2 CFR 200.414",
+    "Costs must be reasonable, allocable, and consistent with policy to be allowable",
+    "Major programs are those over the $750,000 single audit threshold",
+    "Cost-reimbursement and fixed-price are common federal award types"
+  ],
+  "ground_truth": [
+    "2 CFR 200",
+    "Uniform Guidance",
+    "single audit",
+    "allowable",
+    "allocable",
+    "de minimis",
+    "major program",
+    "NICRA"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 6,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "federally-funded-nfp",
+      "input": {
+        "org_name": "Community Health Alliance",
+        "org_type": "501(c)(3)",
+        "total_revenue": "$5,000,000",
+        "federal_revenue": "$2,200,000",
+        "federal_pct": "44",
+        "grant_count": "6",
+        "major_programs": "2",
+        "grantor": "HHS",
+        "award_type": "federal",
+        "cost_type": "cost-reimbursement",
+        "award_amount": "$1,200,000",
+        "drawn_amount": "$800,000",
+        "assistance_listing_number": "93.xxx"
+      },
+      "expected": {
+        "contains": ["2 CFR 200", "single audit", "allowable", "allocable", "major program"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "state-grant-program",
+      "input": {
+        "org_name": "Riverfront Arts Center",
+        "org_type": "501(c)(3)",
+        "total_revenue": "$800,000",
+        "federal_revenue": "$300,000",
+        "federal_pct": "37",
+        "grant_count": "3",
+        "major_programs": "0",
+        "grantor": "State agency",
+        "award_type": "state",
+        "cost_type": "fixed-price",
+        "award_amount": "$250,000",
+        "drawn_amount": "$150,000",
+        "assistance_listing_number": "n/a"
+      },
+      "expected": {
+        "contains": ["2 CFR 200", "allowable", "allocable", "de minimis"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "name": "erp-selection-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/digital-advisory/erp/digital_erp-system-selection_medium_v1.md",
+  "service_line": "digital-advisory",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "The demo is theater; the implementation is where selection mistakes get expensive",
+    "Functional requirements carry a 60% weight in evaluation",
+    "Technical requirements carry a 20% weight",
+    "Vendor requirements carry a 20% weight",
+    "Evaluation should shortlist 3-5 vendors that match the company profile and budget"
+  ],
+  "ground_truth": [
+    "requirements",
+    "shortlist",
+    "weighted criteria",
+    "TCO",
+    "RFP",
+    "implementation",
+    "functional requirements"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 6,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "midmarket-manufacturer",
+      "input": {
+        "company_name": "Ironwood Components",
+        "industry": "manufacturing",
+        "annual_revenue": "$75,000,000",
+        "employee_count": "450",
+        "current_systems": "QuickBooks and Excel",
+        "growth_rate": "15",
+        "locations": "multi-state",
+        "pain_point_1": "inventory accuracy below 90%",
+        "pain_point_2": "month-end close takes 12 days",
+        "pain_point_3": "no multi-entity consolidation",
+        "software_budget": "$150,000 per year",
+        "implementation_budget": "$350,000",
+        "implementation_timeline": "12"
+      },
+      "expected": {
+        "contains": ["functional requirements", "weight", "shortlist", "implementation", "TCO"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "saas-company-evaluation",
+      "input": {
+        "company_name": "Loopboard",
+        "industry": "software",
+        "annual_revenue": "$28,000,000",
+        "employee_count": "180",
+        "current_systems": "NetSuite and custom billing",
+        "growth_rate": "40",
+        "locations": "single",
+        "pain_point_1": "ASC 606 revenue recognition not automated",
+        "pain_point_2": "limited reporting and BI",
+        "pain_point_3": "contract renewals managed in spreadsheets",
+        "software_budget": "$200,000 per year",
+        "implementation_budget": "$250,000",
+        "implementation_timeline": "9"
+      },
+      "expected": {
+        "contains": ["functional requirements", "revenue recognition", "shortlist", "RFP"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}

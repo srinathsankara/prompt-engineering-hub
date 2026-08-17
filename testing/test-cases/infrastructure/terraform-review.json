@@ -1,0 +1,77 @@
+{
+  "name": "terraform-review-medium-suite",
+  "version": "1.0.0",
+  "prompt_ref": "prompts/infrastructure/terraform/infra_terraform-module-review_medium_v1.md",
+  "service_line": "infrastructure",
+  "complexity_tier": "medium",
+  "threshold": {
+    "accuracy": 0.85,
+    "hallucination": 0.0
+  },
+  "known_facts": [
+    "Idempotency means the module produces the same result on every apply",
+    "The standard module layout is main.tf, variables.tf, outputs.tf, versions.tf, README.md",
+    "Modules must not expose secrets and should use least-privilege IAM",
+    "Outputs should be useful for consumers, not just echo inputs",
+    "State safety means avoiding state drift and data loss",
+    "locals should be used for derived values and documented"
+  ],
+  "ground_truth": [
+    "idempotency",
+    "state",
+    "IAM",
+    "least-privilege",
+    "locals",
+    "outputs",
+    "variables",
+    "versions.tf",
+    "security"
+  ],
+  "format": {
+    "required": "markdown",
+    "rules": {
+      "max_sections": 6,
+      "required_disclaimer": ""
+    }
+  },
+  "tests": [
+    {
+      "name": "aws-vpc-module-review",
+      "input": {
+        "module_name": "vpc-networking",
+        "provider": "AWS",
+        "source_repo": "github.com/acme/terraform-modules",
+        "module_path": "/vpc",
+        "terraform_version": "1.7",
+        "provider_version": "5.0",
+        "usage_count": "12",
+        "module_purpose": "Create VPC, subnets, routing, and network ACLs",
+        "terraform_code": "resource \"aws_vpc\" \"main\" { cidr_block = \"10.0.0.0/16\" }\nresource \"aws_subnet\" \"private\" { vpc_id = aws_vpc.main.id\ncidr_block = \"10.0.1.0/24\" }"
+      },
+      "expected": {
+        "contains": ["idempotency", "state", "locals", "outputs", "variables", "IAM", "security"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    },
+    {
+      "name": "azure-resource-group-module-review",
+      "input": {
+        "module_name": "rg-standard",
+        "provider": "Azure",
+        "source_repo": "github.com/acme/terraform-modules",
+        "module_path": "/resource-group",
+        "terraform_version": "1.6",
+        "provider_version": "3.0",
+        "usage_count": "8",
+        "module_purpose": "Create resource group with consistent tagging",
+        "terraform_code": "resource \"azurerm_resource_group\" \"main\" { name = var.name\nlocation = var.location\ntags = var.tags }"
+      },
+      "expected": {
+        "contains": ["idempotency", "state", "locals", "outputs", "variables", "security"],
+        "format": "markdown"
+      },
+      "actual": "(populated during test execution)"
+    }
+  ]
+}
