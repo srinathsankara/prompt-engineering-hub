@@ -2,9 +2,9 @@
 
 <div align="center">
 
-**110 production-ready prompts from a 20-year solution architect — encode decades of enterprise domain expertise into reusable templates your whole team can use today.**
+**111 production-ready prompts from a 20-year solution architect — encode decades of enterprise domain expertise into reusable templates your whole team can use today.**
 
-![Prompts](https://img.shields.io/badge/prompts-110-blue)
+![Prompts](https://img.shields.io/badge/prompts-111-blue)
 ![Service Lines](https://img.shields.io/badge/service%20lines-13-purple)
 ![Test Suites](https://img.shields.io/badge/test%20suites-36-green)
 ![Validation](https://img.shields.io/badge/validation-CI%20automated-brightgreen)
@@ -62,7 +62,7 @@ pwsh scripts/validate-prompts.ps1 -PromptPath prompts/tax/corporate/tax_corporat
 
 ```text
 prompt-engineering-hub/
-├── prompts/              ← The library: 110 prompts across 13 service lines
+├── prompts/              ← The library: 111 prompts across 13 service lines
 ├── skills/               ← Deployable Claude skills (workflows, components, agents)
 ├── patterns/             ← Reusable prompt engineering patterns (few-shot, CoT, RAG)
 ├── testing/              ← Validation so prompts don't regress
@@ -156,7 +156,7 @@ tags: ["cost-segregation", "MACRS", "depreciation", "bonus-depreciation"]
 
 If you're supporting 400+ production apps on AWS/Azure and you just joined the team, these 19 prompts are your cheat codes. You can operate at a senior level with basic Linux and cloud knowledge:
 
-- **Sev1 happening right now?** → `prompts/infrastructure/incident-response/infra_incident-triage_sev1-v2_v1.md` -- walks you through triage, containment, escalation, and fix steps with actual commands and diagnostic questions.
+- **Sev1 happening right now?** → `prompts/infrastructure/incident-response/infra_incident-triage_advanced_v1.md` -- walks you through triage, containment, escalation, and fix steps with actual commands and diagnostic questions.
 - **Pod won't start?** → `prompts/infrastructure/kubernetes/infra_k8s-debugging_medium_v1.md` -- covers CrashLoopBackOff, OOMKilled, ImagePullBackOff, and ten other failure modes with structured diagnosis trees.
 - **Terraform PR to review?** → `prompts/infrastructure/terraform/infra_terraform-module-review_medium_v1.md` -- checks state management, security, cost, and maintainability. Gives you a scored review ready to paste into the PR.
 - **CI/CD pipeline failing?** → `prompts/infrastructure/ci-cd/infra_cicd-pipeline-debug_v1.md` -- classifies failures by stage (build/test/deploy/infra) with fix patterns for each.
@@ -211,14 +211,14 @@ The test runner (`testing/frameworks/prompt-validator.ps1`) runs all of these au
 
 - **YAML frontmatter?** So the CI/CD pipeline can parse, sort, filter, and validate prompts without reading the actual content. The library-sync workflow uses frontmatter tags to build a searchable index.
 - **Double-brace variables?** Consistent with Jinja2 and Handlebars. Also trivial to find with regex (`\{\{.*?\}\}`) so validation can check all placeholders are filled before deployment.
-- **Separate test suites?** Each test validates a specific input/output pair. When a prompt changes, you run the suite. Tests pass means the prompt still works. No regressions across 110 prompts.
+- **Separate test suites?** Each test validates a specific input/output pair. When a prompt changes, you run the suite. Tests pass means the prompt still works. No regressions across 111 prompts.
 - **Separate skills/ from prompts/?** A prompt is a single file. A skill is a deployable Claude configuration that may chain multiple prompts, include tool definitions, and have its own lifecycle. Keeping them separate lets me version each independently.
 
 ---
 
 ## Quick stats
 
-- **110 prompts** across 13 service lines
+- **111 prompts** across 13 service lines
 - **36 test suites** with automated validation
 - **19 infrastructure / SRE prompts** for cloud operations
 - **17 risk & cybersecurity prompts** (CFIUS & NSA compliance, DFARS/FAR/CMMC 2.0, NIST CSF/800-53/800-171, ISO 27001/42001/42002, AI governance, HIPAA, SOX)

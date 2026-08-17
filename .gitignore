@@ -1,12 +1,10 @@
 # Prompt validation artifacts
 testing/reports/*.json
+testing/reports/*.xml
 !testing/reports/.gitkeep
 
 # Build output
 dist/
-
-# Script output
-prompts/prompt-library-index.json
 
 # OS files
 .DS_Store

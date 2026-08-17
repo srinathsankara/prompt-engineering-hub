@@ -5,10 +5,13 @@ on:
     - cron: "0 6 * * 1" # Every Monday at 6 AM
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [master]
     paths:
       - "prompts/**"
       - "config/library-taxonomy.json"
+
+permissions:
+  contents: write
 
 jobs:
   reindex:
